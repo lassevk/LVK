@@ -45,19 +45,8 @@ public class ObjectDumperComplexObjectTests
                                            } // items
                                        }
                                    } // properties
-                                   fields
-                                   {
-                                       <Name>i__Field = "Douglas Adams" [System.String] (see <3>)
-                                       <Books>i__Field = Count: 5 [System.String[]] (see <4>)
-                                   } // fields
                                }
                            } // properties
-                           fields
-                           {
-                               <What>i__Field = 42 [System.Int32]
-                               <Why>i__Field = "Meaning of life" [System.String] (see <1>)
-                               <Who>i__Field = { Name = Douglas Adams, Books = System.String[] } [.<>f__AnonymousType1<System.String, System.String[]>] (see <2>)
-                           } // fields
                        }
                        """;
 

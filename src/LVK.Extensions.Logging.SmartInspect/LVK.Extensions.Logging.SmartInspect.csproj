@@ -21,12 +21,12 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>bin\Debug\LVK.Extensions.Logging.SmartInspect.xml</DocumentationFile>
+        <DocumentationFile>bin\Debug\net8.0\LVK.Extensions.Logging.SmartInspect.xml</DocumentationFile>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>bin\Release\LVK.Extensions.Logging.SmartInspect.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\net8.0\LVK.Extensions.Logging.SmartInspect.xml</DocumentationFile>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     </PropertyGroup>
 
