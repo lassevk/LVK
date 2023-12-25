@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Data.Configuration\LVK.Data.Configuration.csproj" />
+      <ProjectReference Include="..\LVK.Data\LVK.Data.csproj" />
+      <ProjectReference Include="..\LVK.Extensions.Bootstrapping\LVK.Extensions.Bootstrapping.csproj" />
+    </ItemGroup>
+
+</Project>
