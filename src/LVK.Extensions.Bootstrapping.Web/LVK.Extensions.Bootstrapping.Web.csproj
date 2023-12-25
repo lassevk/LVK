@@ -9,7 +9,7 @@
         <Title>LVK.Extensions.Bootstrapping.Web</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen 2023, All rights reserved</Copyright>
-        <PackageProjectUrl>https://github.com/lassevk/LVK.Extensions.Bootstrapping</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>Web application host auxiliary package for LVK.Extensions.Bootstrapping</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -43,7 +43,7 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="..\LVK.Extensions.Bootstrapping\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 

@@ -9,7 +9,7 @@
         <Title>LVK.Typed</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen, All rights reserved</Copyright>
-        <PackageProjectUrl>https://github.com/lassevk/LVK.Typed</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>Nuget package to get more C#-like readable type strings from Type objects</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -36,7 +36,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 

@@ -9,7 +9,7 @@
         <Title>LVK.ObjectDumper</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen, All rights reserved</Copyright>
-        <PackageProjectUrl>https://github.com/lassevk/LVK.ObjectDumper</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>Dump object properties and fields to text, allows for user-rules</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -58,7 +58,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 

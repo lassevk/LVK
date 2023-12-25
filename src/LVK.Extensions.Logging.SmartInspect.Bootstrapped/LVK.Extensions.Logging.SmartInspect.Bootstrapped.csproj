@@ -8,7 +8,7 @@
         <Title>LVK.Extensions.Logging.SmartInspect.Bootstrapped</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen 2023, All rights reserved</Copyright>
-        <PackageProjectUrl>https://github.com/lassevk/LVK.Extensions.Logging.SmartInspect</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>Bootstrapper for LVK.Extensions.Logging.SmartInspect, to use with LVK.Extensions.Bootstrapping</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -45,7 +45,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="..\LVK.Extensions.Logging.SmartInspect\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 

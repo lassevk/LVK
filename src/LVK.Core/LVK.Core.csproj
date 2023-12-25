@@ -11,7 +11,7 @@
         <Title>LVK.Core</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen 2023, All rights reserved</Copyright>
-        <PackageProjectUrl>https://github.com/lassevk/LVK.Core</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>My core routines</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -49,7 +49,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 
