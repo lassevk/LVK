@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: publish-nuget
+on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+  push:
+    tags:
+      - '*'
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
+
+      # Install the .NET SDK indicated in the global.json file
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
+      - name: Publish NuGet package
+        run: |
+          foreach ($file in Get-ChildItem -Recurse -Path . -Filter *.nupkg) {
+            dotnet nuget push $file --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+          }
