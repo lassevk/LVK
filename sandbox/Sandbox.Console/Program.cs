@@ -1,25 +1,5 @@
-﻿using System.Diagnostics;
+﻿using LVK.Extensions.Bootstrapping.Console;
 
-using LVK;
+using Microsoft.Extensions.Hosting;
 
-var lazy = new Lazy<string>(() =>
-{
-    Thread.Sleep(1000);
-    return "Test";
-});
-
-var sw = Stopwatch.StartNew();
-Console.WriteLine($"{sw.ElapsedMilliseconds}: before");
-Console.WriteLine($"{sw.ElapsedMilliseconds}: {await lazy}");
-Console.WriteLine($"{sw.ElapsedMilliseconds}: {await lazy}");
-Console.WriteLine($"{sw.ElapsedMilliseconds}: after");
-
-IEnumerable<string> n = names();
-Guard.NotNull(n);
-Guard.NotNull(n);
-
-IEnumerable<string> names()
-{
-    yield return "A";
-    yield return "B";
-}
+await HostEx.CreateApplication<Sandbox.Console.ModuleBootstrapper>(args).RunAsync();
