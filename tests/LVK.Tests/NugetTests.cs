@@ -141,7 +141,7 @@ public abstract class NugetTests<T>
 
         yield return new TestCaseData("""
                                       <ItemGroup\s+Condition="'\$\(Configuration\)'\s*==\s*'Release'"\s*>
-                                          <None\s+Include="\.\.\\\.\.\\README\.md"\s+Pack="true"\s+PackagePath="\$\(PackageReadmeFile\)"\s*/>
+                                          <None\s+Include="(\.\.\\[a-zA-Z\.]+\\)?README\.md"\s+Pack="true"\s+PackagePath="\$\(PackageReadmeFile\)"\s*/>
                                           <None\s+Include="\.\.\\\.\.\\LICENSE\.md"\s+Pack="true"\s+PackagePath="\$\(PackageLicenseFile\)"\s*/>
                                       </ItemGroup>
                                       """).SetName("Include README.md and LICENSE.md");
