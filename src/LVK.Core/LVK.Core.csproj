@@ -50,6 +50,12 @@
         <Compile Update="Extensions\CancellationTokenAwaiter.cs">
             <DependentUpon>CancellationTokenExtensions.cs</DependentUpon>
         </Compile>
+        <Compile Update="Caching\ManualWeakCache.cs">
+          <DependentUpon>WeakCache.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Caching\AutoWeakCache.cs">
+          <DependentUpon>WeakCache.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 </Project>

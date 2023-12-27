@@ -40,6 +40,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
     </ItemGroup>
 
     <ItemGroup>

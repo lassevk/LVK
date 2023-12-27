@@ -6,7 +6,7 @@ namespace LVK.Data.Protection.PasswordProviders;
 
 public class EnvironmentVariableDataProtectionPasswordProvider : IDataProtectionPasswordProvider
 {
-    private readonly WeakCache<string, string> _variableNameCache = new();
+    private readonly ManualWeakCache<string, string> _variableNameCache = new();
 
     public string? TryGetPassword(string passwordName)
     {
