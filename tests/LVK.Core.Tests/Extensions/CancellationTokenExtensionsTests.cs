@@ -1,6 +1,6 @@
 using LVK.Core.Extensions;
 
-namespace LVK.Core.Tests;
+namespace LVK.Core.Tests.Extensions;
 
 public class CancellationTokenAwaiterTests
 {

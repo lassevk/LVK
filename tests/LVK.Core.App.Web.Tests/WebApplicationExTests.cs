@@ -1,9 +1,4 @@
-using System.Linq;
-using System.Reflection;
-
-using Microsoft.AspNetCore.Builder;
-
-namespace LVK.Extensions.Bootstrapping.Web.Tests;
+namespace LVK.Core.App.Web.Tests;
 
 // public class WebApplicationExTests
 // {

@@ -1,6 +1,6 @@
 using LVK.Tests;
 
-namespace LVK.Core.Tests;
+namespace LVK.NodaTime.Tests;
 
 [TestFixture]
 [NugetProject("../../src/LVK.NodaTime/LVK.NodaTime.csproj")]

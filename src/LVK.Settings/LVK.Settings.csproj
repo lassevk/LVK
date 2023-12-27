@@ -6,11 +6,11 @@
         <Nullable>enable</Nullable>
 
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
-        <Title>LVK.ObjectDumper</Title>
+        <Title>LVK.Settings</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen 2023, All rights reserved</Copyright>
         <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
-        <Description>Dump object properties and fields to text, allows for user-rules</Description>
+        <Description>Persistent settings</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -21,7 +21,7 @@
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
@@ -33,18 +33,6 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="ObjectDumper.cs">
-            <DependentUpon>IObjectDumper.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ObjectDumperContext.cs">
-            <DependentUpon>IObjectDumperContext.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ObjectDumperWriter.cs">
-            <DependentUpon>IObjectDumperWriter.cs</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
@@ -52,6 +40,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
-      <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="SettingsStore.cs">
+        <DependentUpon>ISettingsStore.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

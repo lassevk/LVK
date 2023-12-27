@@ -1,6 +1,6 @@
 using LVK.Tests;
 
-namespace LVK.Extensions.Bootstrapping.Console.Tests;
+namespace LVK.Core.App.Console.Tests;
 
 [TestFixture]
 [NugetProject("../../src/LVK.Core.App.Console/LVK.Core.App.Console.csproj")]

@@ -1,8 +1,6 @@
 using LVK.Core.Extensions;
 
-using NSubstitute;
-
-namespace LVK.Core.Tests;
+namespace LVK.Core.Tests.Extensions;
 
 public class LazyAwaiterTests
 {
