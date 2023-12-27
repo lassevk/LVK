@@ -13,8 +13,6 @@
         <Description>In-process eventbus</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\key.snk</AssemblyOriginatorKeyFile>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSource>true</EmbedUntrackedSource>
         <DebugType>embedded</DebugType>
@@ -26,16 +24,6 @@
         </Compile>
         <Compile Remove="IEventSubscriber.cs" />
     </ItemGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>bin\Debug\net8.0\LVK.Events.xml</DocumentationFile>
-        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>bin\Release\net8.0\LVK.Events.xml</DocumentationFile>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    </PropertyGroup>
 
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -53,18 +41,11 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="..\..\key.snk">
-            <Link>key.snk</Link>
-        </None>
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
     </ItemGroup>
-
 </Project>

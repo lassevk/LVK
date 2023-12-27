@@ -1,4 +1,4 @@
-using LVK.Tests.Nuget;
+using LVK.Tests;
 
 namespace LVK.Core.Tests;
 

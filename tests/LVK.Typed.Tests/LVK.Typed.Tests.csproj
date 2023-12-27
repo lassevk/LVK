@@ -5,8 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\key.snk</AssemblyOriginatorKeyFile>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
@@ -26,11 +24,4 @@
       <ProjectReference Include="..\..\src\LVK.Typed\LVK.Typed.csproj" />
       <ProjectReference Include="..\LVK.Tests\LVK.Tests.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <None Include="..\..\key.snk">
-            <Link>key.snk</Link>
-        </None>
-    </ItemGroup>
-
 </Project>

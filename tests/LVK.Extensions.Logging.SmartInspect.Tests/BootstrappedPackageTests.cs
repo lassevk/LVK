@@ -1,9 +1,9 @@
-using LVK.Tests.Nuget;
+using LVK.Tests;
 
 namespace LVK.Extensions.Logging.SmartInspect.Tests;
 
 [TestFixture]
-[NugetProject("../../src/LVK.Extensions.Logging.SmartInspect.Bootstrapped/LVK.Extensions.Logging.SmartInspect.Bootstrapped.csproj")]
+[NugetProject("../../src/LVK.Extensions.Logging.SmartInspect/LVK.Extensions.Logging.SmartInspect.csproj")]
 public class BootstrappedPackageTests : NugetTests<BootstrappedPackageTests>
 {
 

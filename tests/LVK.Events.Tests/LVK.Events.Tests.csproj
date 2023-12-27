@@ -7,8 +7,6 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,11 +25,4 @@
       <ProjectReference Include="..\..\src\LVK.Events\LVK.Events.csproj" />
       <ProjectReference Include="..\LVK.Tests\LVK.Tests.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\..\key.snk">
-        <Link>key.snk</Link>
-      </None>
-    </ItemGroup>
-
 </Project>

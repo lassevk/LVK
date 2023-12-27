@@ -1,3 +1,0 @@
-# LVK.Typed
-
-* TODO

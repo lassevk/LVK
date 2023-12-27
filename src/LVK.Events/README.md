@@ -1,3 +1,0 @@
-# LVK.Events
-
-* TODO

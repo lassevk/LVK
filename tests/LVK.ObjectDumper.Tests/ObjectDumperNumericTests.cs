@@ -1,9 +1,11 @@
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+
+using NUnit.Framework.Internal;
+
 namespace LVK.ObjectDumper.Tests;
 
-public class ObjectDumperNumericTests
+public class ObjectDumperNumericTests : ObjectDumperTestBase
 {
-    private readonly IObjectDumper _dumper = ObjectDumperFactory.Create();
-
     [Test]
     [TestCase("Value", (long)10, "Value = 10 [System.Int64]")]
     [TestCase("Value", (ulong)11, "Value = 11 [System.UInt64]")]
@@ -17,14 +19,14 @@ public class ObjectDumperNumericTests
     [TestCase("Value", (double)20.789, "Value = 20.789 [System.Double]")]
     public void Dump_WithTestCases(string name, object value, string expected)
     {
-        string output = _dumper.Dump(name, value);
+        string output = Dumper.Dump(name, value);
         Assert.That(output, Is.EqualTo(expected));
     }
 
     [Test]
     public void Dump_DecimalType()
     {
-        string output = _dumper.Dump("Value", 19.456M);
+        string output = Dumper.Dump("Value", 19.456M);
         Assert.That(output, Is.EqualTo("Value = 19.456 [System.Decimal]"));
     }
 }

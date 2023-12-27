@@ -1,17 +1,10 @@
-using LVK.Tests.Nuget;
+using LVK.Tests;
 
 namespace LVK.Events.Tests;
 
 [TestFixture]
 [NugetProject("../../src/LVK.Events/LVK.Events.csproj")]
 public class PackageTests : NugetTests<PackageTests>
-{
-
-}
-
-[TestFixture]
-[NugetProject("../../src/LVK.Events.Bootstrapped/LVK.Events.Bootstrapped.csproj")]
-public class BootstrappedPackageTests : NugetTests<BootstrappedPackageTests>
 {
 
 }

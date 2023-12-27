@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>d4746307-dc1f-4774-965e-2c8dec51fb18</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\LVK.Core.App.Console\LVK.Core.App.Console.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Data\LVK.Data.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Events\LVK.Events.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Extensions.Logging.SmartInspect\LVK.Extensions.Logging.SmartInspect.csproj" />
+      <ProjectReference Include="..\..\src\LVK.NodaTime\LVK.NodaTime.csproj" />
+      <ProjectReference Include="..\..\src\LVK.ObjectDumper\LVK.ObjectDumper.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Typed\LVK.Typed.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

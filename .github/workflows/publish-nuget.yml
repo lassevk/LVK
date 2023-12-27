@@ -25,7 +25,7 @@ jobs:
         with:
           source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_PAT}}
 
       - name: Build
         run: dotnet build --configuration Release
@@ -36,5 +36,5 @@ jobs:
       - name: Publish NuGet package
         run: |
           foreach ($file in Get-ChildItem -Recurse -Path . -Filter *.nupkg) {
-            dotnet nuget push $file --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_PAT }}" --no-symbols --skip-duplicate
           }

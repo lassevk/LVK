@@ -2,6 +2,8 @@ using System.Drawing;
 
 using Gurock.SmartInspect;
 
+using LVK.Core;
+
 using Microsoft.Extensions.Logging;
 
 namespace LVK.Extensions.Logging.SmartInspect;

@@ -1,4 +1,4 @@
-namespace LVK.Tests.Nuget;
+namespace LVK.Tests;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 public class NugetProjectAttribute : Attribute

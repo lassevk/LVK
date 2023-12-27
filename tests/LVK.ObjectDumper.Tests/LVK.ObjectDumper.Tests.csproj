@@ -7,9 +7,6 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <ItemGroup>

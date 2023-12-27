@@ -13,21 +13,9 @@
         <Description>Dump object properties and fields to text, allows for user-rules</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\key.snk</AssemblyOriginatorKeyFile>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSource>true</EmbedUntrackedSource>
         <DebugType>embedded</DebugType>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>bin\Debug\LVK.Extensions.Bootstrapping.xml</DocumentationFile>
-        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>bin\Release\LVK.Extensions.Bootstrapping.xml</DocumentationFile>
-        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
@@ -58,12 +46,12 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
     </ItemGroup>
-
 </Project>

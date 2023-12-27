@@ -1,4 +1,6 @@
-﻿namespace LVK.Typed;
+﻿using LVK.Typed.Rules;
+
+namespace LVK.Typed;
 
 internal class TypeHelper : ITypeHelper
 {

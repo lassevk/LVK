@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace LVK.Tests.Nuget;
+namespace LVK.Tests;
 
 public abstract class NugetTests<T>
     where T: NugetTests<T>
@@ -112,19 +112,6 @@ public abstract class NugetTests<T>
     private static IEnumerable<TestCaseData> RequiredSections()
     {
         string? projectName = Path.GetFileNameWithoutExtension(_projectFilePath.Value);
-        yield return new TestCaseData($"""
-                                      <PropertyGroup\s*Condition="\s*'\$\(Configuration\)'\s*==\s*'Debug'\s*"\s*>
-                                          <DocumentationFile>bin\\Debug\\net8.0\\{projectName}\.xml</DocumentationFile>
-                                          <TreatWarningsAsErrors>(true|false)</TreatWarningsAsErrors>
-                                      </PropertyGroup>
-                                      """).SetName("Debug Documentation");
-        yield return new TestCaseData($"""
-                                      <PropertyGroup\s*Condition="\s*'\$\(Configuration\)'\s*==\s*'Release'\s*"\s*>
-                                          <DocumentationFile>bin\\Release\\net8.0\\{projectName}\.xml</DocumentationFile>
-                                          <TreatWarningsAsErrors>(true|false)</TreatWarningsAsErrors>
-                                      </PropertyGroup>
-                                      """).SetName("Release Documentation");
-
         yield return new TestCaseData("""
                                       <PackageReference\s*Include="Microsoft.SourceLink.GitHub"\s*Version="8\.\d+\.\d+">
                                           <PrivateAssets>all</PrivateAssets>
@@ -145,14 +132,6 @@ public abstract class NugetTests<T>
                                           <None\s+Include="\.\.\\\.\.\\LICENSE\.md"\s+Pack="true"\s+PackagePath="\$\(PackageLicenseFile\)"\s*/>
                                       </ItemGroup>
                                       """).SetName("Include README.md and LICENSE.md");
-
-        yield return new TestCaseData("""
-                                      <ItemGroup>
-                                          <None\s+Include="\.\.\\\.\.\\key\.snk">
-                                              <Link>key\.snk</Link>
-                                          </None>
-                                      </ItemGroup>
-                                      """).SetName("Include signing key");
     }
 
     private static List<string> StringToLines(string input)

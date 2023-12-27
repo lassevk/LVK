@@ -1,24 +1,13 @@
 ﻿using System.Collections.Concurrent;
 
+using LVK.Core;
+
 namespace LVK.Events;
 
-/// <summary>
-/// This class implements the <see cref="IEventBus"/> interface.
-/// </summary>
-public class EventBus : IEventBus
+internal class EventBus : IEventBus
 {
     private readonly object _globalGroup = new();
     private readonly ConcurrentDictionary<Type, ConcurrentDictionary<object, HashSet<object>>> _subscribers = new();
-
-    internal EventBus()
-    {
-
-    }
-
-    /// <summary>
-    /// Returns the singleton instance of <see cref="IEventBus"/> for the process.
-    /// </summary>
-    public static IEventBus Instance { get; } = new EventBus();
 
     IDisposable IEventBus.Subscribe<T>(object? group, Func<T, CancellationToken, Task> subscriber)
     {
