@@ -22,7 +22,12 @@
         <Compile Update="EventBus.cs">
             <DependentUpon>IEventBus.cs</DependentUpon>
         </Compile>
-        <Compile Remove="IEventSubscriber.cs" />
+        <Compile Update="IEventSubscriber.cs">
+          <DependentUpon>IEventBus.cs</DependentUpon>
+        </Compile>
+        <Compile Update="EventBusExtensions.cs">
+          <DependentUpon>IEventBus.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
