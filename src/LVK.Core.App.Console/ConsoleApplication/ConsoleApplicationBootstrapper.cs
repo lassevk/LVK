@@ -3,7 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace LVK.Core.App.Console;
+namespace LVK.Core.App.Console.ConsoleApplication;
 
 internal class ConsoleApplicationBootstrapper : IApplicationBootstrapper<HostApplicationBuilder, IHost>
 {

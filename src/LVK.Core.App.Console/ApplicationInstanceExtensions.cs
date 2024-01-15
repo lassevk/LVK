@@ -1,4 +1,6 @@
-﻿using LVK.Core.Bootstrapping;
+﻿using LVK.Core.App.Console.CommandLineInterface;
+using LVK.Core.App.Console.ConsoleApplication;
+using LVK.Core.Bootstrapping;
 
 using Microsoft.Extensions.Hosting;
 
@@ -21,5 +23,14 @@ public static class ApplicationInstanceExtensions
         Guard.NotNull(applicationBootstrappers);
 
         return application.BootstrapAndBuild(Host.CreateApplicationBuilder(), b => b.Build(), [..applicationBootstrappers, new ConsoleApplicationBootstrapper()]).RunAsync();
+    }
+
+    public static Task RunAsCommandLineInterface(this IApplication application, string[] args, params IApplicationBootstrapper<HostApplicationBuilder, IHost>[] applicationBootstrappers)
+    {
+        Guard.NotNull(application);
+        Guard.NotNull(applicationBootstrappers);
+        Guard.NotNull(args);
+
+        return application.BootstrapAndBuild(Host.CreateApplicationBuilder(args), b => b.Build(), [..applicationBootstrappers, new CommandLineInterfaceBootstrapper()]).RunAsync();
     }
 }

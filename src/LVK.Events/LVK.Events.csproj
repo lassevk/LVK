@@ -8,7 +8,7 @@
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
         <Title>LVK.Events</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
-        <Copyright>Lasse Vågsæther Karlsen 2023, All rights reserved</Copyright>
+        <Copyright>Lasse Vågsæther Karlsen 2024, All rights reserved</Copyright>
         <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>In-process eventbus</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>

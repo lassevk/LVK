@@ -1,9 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+
+using LVK.Core.App.Console.Parameters;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace LVK.Core.App.Console;
+namespace LVK.Core.App.Console.ConsoleApplication;
 
 internal class MainEntrypointRunner : IHostedService
 {
@@ -31,9 +35,25 @@ internal class MainEntrypointRunner : IHostedService
     {
         try
         {
+            if (_mainEntrypoint == null)
+            {
+                await System.Console.Error.WriteLineAsync("No main entry point registered, unable to continue");
+                return 1;
+            }
+
             var cts = new CancellationTokenSource();
             cancellationToken.Register(() => cts.Cancel());
             _hostLifetime.ApplicationStopping.Register(() => cts.Cancel());
+
+            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray();
+            if (arguments.Any(a => StringComparer.InvariantCultureIgnoreCase.Equals("-h", a) || StringComparer.InvariantCultureIgnoreCase.Equals("--help", a)))
+            {
+                _logger.LogDebug("Providing help for application instead of executing it");
+                ShowHelp();
+                return 0;
+            }
+
+            InstanceParameterHandler.InjectParameters(_mainEntrypoint, arguments);
 
             int exitCode = await _mainEntrypoint!.RunAsync(cts.Token);
             _logger.LogInformation("Application code terminated gracefully, exiting with exit code {ExitCode}", Environment.ExitCode);
@@ -53,6 +73,33 @@ internal class MainEntrypointRunner : IHostedService
         {
             _hostLifetime.StopApplication();
         }
+    }
+
+    private void ShowHelp()
+    {
+        if (_mainEntrypoint == null)
+        {
+            System.Console.Error.WriteLine("No entry point, unable to provide help");
+            return;
+        }
+
+        DescriptionAttribute? attr = _mainEntrypoint!.GetType().GetCustomAttribute<DescriptionAttribute>();
+        string description = attr?.Description ?? "No description provided";
+
+        System.Console.WriteLine($"{GetApplicationName()}: {description}");
+        foreach (string line in InstanceParameterHandler.ProvideParameterHelp(_mainEntrypoint.GetType()))
+            System.Console.WriteLine("  " + line);
+    }
+
+    private string GetApplicationName()
+    {
+        var assembly = Assembly.GetEntryAssembly();
+        string? name = assembly?.GetName().Name;
+        if (name != null)
+            return name;
+
+        using var process = Process.GetCurrentProcess();
+        return process.ProcessName;
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
