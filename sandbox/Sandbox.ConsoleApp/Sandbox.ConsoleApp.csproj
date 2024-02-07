@@ -14,7 +14,9 @@
       <ProjectReference Include="..\..\src\LVK.Data\LVK.Data.csproj" />
       <ProjectReference Include="..\..\src\LVK.Events\LVK.Events.csproj" />
       <ProjectReference Include="..\..\src\LVK.Extensions.Logging.SmartInspect\LVK.Extensions.Logging.SmartInspect.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Networking\LVK.Networking.csproj" />
       <ProjectReference Include="..\..\src\LVK.NodaTime\LVK.NodaTime.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Notifications.Pushover\LVK.Notifications.Pushover.csproj" />
       <ProjectReference Include="..\..\src\LVK.ObjectDumper\LVK.ObjectDumper.csproj" />
       <ProjectReference Include="..\..\src\LVK.Typed\LVK.Typed.csproj" />
     </ItemGroup>

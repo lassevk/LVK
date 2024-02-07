@@ -12,8 +12,12 @@ public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilde
 {
     public void Bootstrap(IHostBootstrapper<HostApplicationBuilder, IHost> bootstrapper, HostApplicationBuilder builder)
     {
-        bootstrapper.Bootstrap(new LVK.Events.ModuleBootstrapper()).Bootstrap(new LVK.Extensions.Logging.SmartInspect.ModuleBootstrapper())
-           .Bootstrap(new LVK.Events.ModuleBootstrapper()).Bootstrap(new LVK.ObjectDumper.ModuleBootstrapper()).Bootstrap(new LVK.Events.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new LVK.Events.ModuleBootstrapper())
+           .Bootstrap(new LVK.Extensions.Logging.SmartInspect.ModuleBootstrapper())
+           .Bootstrap(new LVK.Events.ModuleBootstrapper())
+           .Bootstrap(new LVK.ObjectDumper.ModuleBootstrapper())
+           .Bootstrap(new LVK.Events.ModuleBootstrapper())
+           .Bootstrap(new LVK.Notifications.Pushover.ModuleBootstrapper());
 
         builder.Services.AddTransient<IService, Service>();
         builder.Services.AddMainEntrypoint<MainEntrypoint>();

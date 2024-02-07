@@ -1,30 +1,28 @@
-using System.ComponentModel;
-using System.Text.Json;
+﻿using LVK.Core.App.Console;
+using LVK.Events;
+using LVK.Notifications.Pushover;
 
-using LVK.Core.App.Console;
-using LVK.Core.App.Console.CommandLineInterface;
-using LVK.Core.App.Console.Parameters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Sandbox.ConsoleApp;
 
-[Description("Some random program")]
 public class MainEntrypoint : IMainEntrypoint
 {
-    public Task<int> RunAsync(CancellationToken stoppingToken)
-    {
-        Console.WriteLine(JsonSerializer.Serialize(this, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        }));
+    private readonly ILogger<MainEntrypoint> _logger;
+    private readonly IConfiguration _configuration;
+    private readonly IEventBus _eventBus;
 
-        return Task.FromResult(0);
+    public MainEntrypoint(ILogger<MainEntrypoint> logger, IConfiguration configuration, IEventBus eventBus)
+    {
+        _logger = logger;
+        _configuration = configuration;
+        _eventBus = eventBus;
     }
 
-    [CommandLineOption("b")]
-    [CommandLineOption("boolean")]
-    [Description("A boolean property")]
-    public bool BoolProperty { get; set; }
-
-    [PositionalArguments]
-    public List<string> Positional { get; } = new();
+    public async Task<int> RunAsync(CancellationToken stoppingToken)
+    {
+        await _eventBus.PublishAsync(new PushoverNotification("Test message").WithTitle("Test"), stoppingToken);
+        return 0;
+    }
 }
