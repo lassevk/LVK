@@ -8,7 +8,7 @@
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
         <Title>LVK.Typed</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
-        <Copyright>Lasse Vågsæther Karlsen 2024, All rights reserved</Copyright>
+        <Copyright>Lasse Vågsæther Karlsen $([System.DateTime]::Today.ToString('yyyy')) All rights reserved</Copyright>
         <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
         <Description>Nuget package to get more C#-like readable type strings from Type objects</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>

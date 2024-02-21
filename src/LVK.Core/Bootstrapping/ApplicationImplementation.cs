@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace LVK.Core.Bootstrapping;
@@ -16,7 +17,10 @@ internal class ApplicationImplementation : IApplication
         IHostBootstrapper<TBuilder, THost> hostBootstrapper = new HostBootstrapper<TBuilder, THost>(builder);
 
         foreach (IApplicationBootstrapper<TBuilder, THost> bootstrapper in bootstrappers)
+        {
+            builder.Configuration.AddUserSecrets(bootstrapper.GetType().Assembly);
             hostBootstrapper.Bootstrap(bootstrapper);
+        }
 
         THost host = build(builder);
         Initialize(host);
