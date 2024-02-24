@@ -94,7 +94,7 @@ public abstract class NugetTests<T>
         yield return prop("Nullable", "enable");
         yield return prop("Title", Path.GetFileNameWithoutExtension(_projectFilePath.Value)!);
         yield return prop("Authors", "Lasse V\u00e5gs\u00e6ther Karlsen");
-        yield return prop("Copyright", $"Lasse V\u00e5gs\u00e6ther Karlsen {DateTime.Today.Year}, All rights reserved");
+        yield return prop("Copyright", $"Lasse V\u00e5gs\u00e6ther Karlsen $([System.DateTime]::Today.ToString('yyyy')), All rights reserved");
         yield return prop("PackageReadmeFile", "README.md");
         yield return prop("PackageLicenseFile", "LICENSE.md");
         yield return prop("PublishRepositoryUrl", "true");
