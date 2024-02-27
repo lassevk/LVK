@@ -1,6 +1,6 @@
 using LVK.Tests;
 
-namespace LVK.Networking.Test;
+namespace LVK.Networking.Tests;
 
 [TestFixture]
 [NugetProject("../../src/LVK.Networking/LVK.Networking.csproj")]
