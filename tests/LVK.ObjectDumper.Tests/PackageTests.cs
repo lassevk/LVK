@@ -4,7 +4,4 @@ namespace LVK.ObjectDumper.Tests;
 
 [TestFixture]
 [NugetProject("../../src/LVK.ObjectDumper/LVK.ObjectDumper.csproj")]
-public class PackageTests : NugetTests<PackageTests>
-{
-
-}
+public class PackageTests : NugetTests<PackageTests>;

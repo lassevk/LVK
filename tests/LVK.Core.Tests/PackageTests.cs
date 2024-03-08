@@ -4,7 +4,4 @@ namespace LVK.Core.Tests;
 
 [TestFixture]
 [NugetProject("../../src/LVK.Core/LVK.Core.csproj")]
-public class PackageTests : NugetTests<PackageTests>
-{
-
-}
+public class PackageTests : NugetTests<PackageTests>;

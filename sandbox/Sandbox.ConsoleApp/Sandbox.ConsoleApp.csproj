@@ -11,6 +11,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\src\LVK.Core.App.Console\LVK.Core.App.Console.csproj" />
       <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Data.EntityFramework.Postgres\LVK.Data.EntityFramework.Postgres.csproj" />
       <ProjectReference Include="..\..\src\LVK.Data.EntityFramework.Sqlite\LVK.Data.EntityFramework.Sqlite.csproj" />
       <ProjectReference Include="..\..\src\LVK.Data\LVK.Data.csproj" />
       <ProjectReference Include="..\..\src\LVK.Events\LVK.Events.csproj" />

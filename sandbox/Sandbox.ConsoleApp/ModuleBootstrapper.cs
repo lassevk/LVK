@@ -1,6 +1,7 @@
 ﻿using LVK.Core.App.Console;
 using LVK.Core.Bootstrapping;
 using LVK.Data.EntityFramework.MySql;
+using LVK.Data.EntityFramework.Postgres;
 using LVK.Data.EntityFramework.Sqlite;
 
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilde
         builder.Services.AddTransient<IService, Service>();
         builder.Services.AddMainEntrypoint<MainEntrypoint>();
 
-        builder.AddMySqlDbContext<TestDbContext>("Default");
+        builder.AddPostgresSqlDbContext<TestDbContext>("Default");
         // builder.AddSqliteDbContext<TestDbContext>("Default");
     }
 
