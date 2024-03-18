@@ -1,8 +1,6 @@
 ﻿using LVK.Core.App.Console;
-using LVK.Events;
+using LVK.Data.BlobStorage;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Sandbox.ConsoleApp;
@@ -10,26 +8,35 @@ namespace Sandbox.ConsoleApp;
 public class MainEntrypoint : IMainEntrypoint
 {
     private readonly ILogger<MainEntrypoint> _logger;
-    private readonly IConfiguration _configuration;
-    private readonly IEventBus _eventBus;
-    private readonly IDbContextFactory<TestDbContext> _dbContextFactory;
+    private readonly IBlobStorageFactory _blobStorageFactory;
 
-    public MainEntrypoint(ILogger<MainEntrypoint> logger, IConfiguration configuration, IEventBus eventBus, IDbContextFactory<TestDbContext> dbContextFactory)
+    public MainEntrypoint(ILogger<MainEntrypoint> logger, IBlobStorageFactory blobStorageFactory)
     {
-        _logger = logger;
-        _configuration = configuration;
-        _eventBus = eventBus;
-        _dbContextFactory = dbContextFactory;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _blobStorageFactory = blobStorageFactory ?? throw new ArgumentNullException(nameof(blobStorageFactory));
     }
 
     public async Task<int> RunAsync(CancellationToken stoppingToken)
     {
-        await using TestDbContext dbContext = await _dbContextFactory.CreateDbContextAsync(stoppingToken);
+        IBlobStorage storage = await _blobStorageFactory.OpenAsync("/Users/lassevk/Temp", stoppingToken);
 
-        foreach (TestItem item in dbContext.Items!)
-            Console.WriteLine(item.Value);
+        // string reference = await storage.SaveAsync("This is a test", stoppingToken);
+        // await storage.SetTagAsync("test/main", reference, stoppingToken);
+        //
+        // reference = await storage.GetTagAsync("test/main", stoppingToken);
+        // var obj = await storage.LoadAsync<string>(reference, stoppingToken);
 
-        Console.WriteLine("Done");
+        await foreach (string name in storage.EnumerateTagsAsync(false, stoppingToken))
+        {
+            Console.WriteLine(name);
+        }
+
         return 0;
     }
+}
+
+public class Test
+{
+    public int id { get; set; }
+    public string value { get; set; }
 }
