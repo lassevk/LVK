@@ -21,6 +21,7 @@
       <ProjectReference Include="..\..\src\LVK.NodaTime\LVK.NodaTime.csproj" />
       <ProjectReference Include="..\..\src\LVK.Notifications.Pushover\LVK.Notifications.Pushover.csproj" />
       <ProjectReference Include="..\..\src\LVK.ObjectDumper\LVK.ObjectDumper.csproj" />
+      <ProjectReference Include="..\..\src\LVK.Security.OnePassword\LVK.Security.OnePassword.csproj" />
       <ProjectReference Include="..\..\src\LVK.Typed\LVK.Typed.csproj" />
       <ProjectReference Include="..\..\tests\LVK.Data.EntityFramework.MySql.Tests\LVK.Data.EntityFramework.MySql.Tests.csproj" />
     </ItemGroup>

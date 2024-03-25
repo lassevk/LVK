@@ -18,7 +18,8 @@ public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilde
            .Bootstrap(new LVK.Data.EntityFramework.ModuleBootstrapper())
            .Bootstrap(new LVK.Data.EntityFramework.Sqlite.ModuleBootstrapper())
            .Bootstrap(new LVK.Data.EntityFramework.MySql.ModuleBootstrapper())
-           .Bootstrap(new LVK.Data.BlobStorage.ModuleBootstrapper());
+           .Bootstrap(new LVK.Data.BlobStorage.ModuleBootstrapper())
+           .Bootstrap(new LVK.Security.OnePassword.ModuleBootstrapper());
 
         builder.Services.AddMainEntrypoint<MainEntrypoint>();
     }
