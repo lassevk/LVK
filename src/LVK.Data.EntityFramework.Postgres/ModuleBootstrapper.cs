@@ -2,7 +2,7 @@ using LVK.Core.Bootstrapping;
 
 using Microsoft.Extensions.Hosting;
 
-namespace LVK.Data.EntityFramework;
+namespace LVK.Data.EntityFramework.Postgres;
 
 public class ModuleBootstrapper : IModuleBootstrapper
 {
@@ -10,6 +10,6 @@ public class ModuleBootstrapper : IModuleBootstrapper
     {
         bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
 
-        bootstrapper.Bootstrap(new LVK.Data.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new LVK.Data.EntityFramework.ModuleBootstrapper());
     }
 }

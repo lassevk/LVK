@@ -12,6 +12,6 @@ public static class ApplicationInstanceExtensions
         Guard.NotNull(args);
         Guard.NotNull(applicationBootstrapper);
 
-        return application.BootstrapAndBuild(WebApplication.CreateBuilder(args), b => b.Build(), applicationBootstrapper).RunAsync();
+        return application.BootstrapAndBuild(WebApplication.CreateBuilder(args), b => b.Build(), applicationBootstrapper, new WebApplicationBootstrapper()).RunAsync();
     }
 }

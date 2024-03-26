@@ -1,6 +1,5 @@
 ﻿using LVK.Core.Bootstrapping;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,6 +9,8 @@ internal class ConsoleApplicationBootstrapper : IApplicationBootstrapper<HostApp
 {
     public void Bootstrap(IHostBootstrapper<HostApplicationBuilder, IHost> bootstrapper, HostApplicationBuilder builder)
     {
+        bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
+
         builder.Services.AddHostedService<MainEntrypointRunner>();
     }
 }

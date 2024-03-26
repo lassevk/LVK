@@ -10,6 +10,8 @@ internal class WindowsServiceBootstrapper : IApplicationBootstrapper<HostApplica
 {
     public void Bootstrap(IHostBootstrapper<HostApplicationBuilder, IHost> bootstrapper, HostApplicationBuilder builder)
     {
+        bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
+
         builder.Services.AddWindowsService(options =>
         {
             using var process = Process.GetCurrentProcess();
