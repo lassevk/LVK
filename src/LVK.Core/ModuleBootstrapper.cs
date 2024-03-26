@@ -14,20 +14,6 @@ public class ModuleBootstrapper : IModuleBootstrapper
         if (assemblyLocation == null)
             return;
 
-        for (int index = builder.Configuration.Sources.Count - 1; index >= 0; index--)
-        {
-            var jcs = builder.Configuration.Sources[index] as JsonConfigurationSource;
-            if (jcs is null)
-                continue;
-
-            if (!jcs.Path?.StartsWith("appsettings.", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                continue;
-            if (!jcs.Path?.EndsWith(".json", StringComparison.InvariantCultureIgnoreCase) ?? false)
-                continue;
-
-            builder.Configuration.Sources.RemoveAt(index);
-        }
-
         string[] configurationFiles =
         [
             "appsettings.json", $"appsettings.{builder.Environment.EnvironmentName}.json", $"appsettings.{builder.Environment.EnvironmentName}.json",
