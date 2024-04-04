@@ -1,29 +1,29 @@
-﻿using System.Collections;
-using System.Reflection;
-using System.Text.Json;
-
-using LVK.Core.App.Console;
-using LVK.Data.BlobStorage;
-using LVK.Security.OnePassword;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using LVK.Core.App.Console;
+using LVK.Data.Processing;
 
 namespace Sandbox.ConsoleApp;
 
 public class MainEntrypoint : IMainEntrypoint
 {
-    private readonly IConfiguration _configuration;
+    private readonly IProcessor<InputComponent, OutputLengthComponent> _processor;
 
-    public MainEntrypoint(ILogger<MainEntrypoint> logger, IBlobStorageFactory blobStorageFactory, IOnePassword onePassword, IConfiguration configuration)
+    public MainEntrypoint(IProcessor<InputComponent, OutputLengthComponent> processor)
     {
-        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _processor = processor ?? throw new ArgumentNullException(nameof(processor));
     }
 
     public async Task<int> RunAsync(CancellationToken stoppingToken)
     {
         await Task.Yield();
-        Console.WriteLine(_configuration["SomeSetting"]);
+
+        InputComponent[] inputs = [ new InputComponent(Guid.NewGuid()), new InputComponent(Guid.NewGuid()), new InputComponent(Guid.NewGuid()) ];
+        Console.WriteLine("start");
+        for (var index = 0; index < 1000; index++)
+        {
+            List<(InputComponent input, OutputLengthComponent? output)> result = await _processor.ProcessAsync(inputs, stoppingToken);
+            GC.KeepAlive(result);
+        }
+        Console.WriteLine("end");
 
         return 0;
     }

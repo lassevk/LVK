@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Processor.cs">
+        <DependentUpon>IProcessor.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DelegateEntityProcessor.cs">
+        <DependentUpon>IEntityProcessor.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>
