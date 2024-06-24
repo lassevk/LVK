@@ -6,14 +6,10 @@ namespace LVK.Typed.Tests;
 [TestFixture]
 public class TypeHelperTests
 {
-    private readonly ITypeHelper _typeHelper = new Typed.TypeHelper([new GenericTypeNameRule(), new NormalTypeNameRule(), new NullableTypeNameRule(), new CSharpKeywordTypeNameRule()]);
-
     [Test]
     public void NameOf_NullType_ThrowsArgumentNullException()
     {
-        var th = new TypeHelper(new List<ITypeNameRule>());
-
-        Assert.Throws<ArgumentNullException>(() => th.NameOf(null!));
+        Assert.Throws<ArgumentNullException>(() => TypeHelper.Instance.NameOf(null!));
     }
 
     [Test]
@@ -28,7 +24,7 @@ public class TypeHelperTests
     [TestCase(typeof(Dictionary<List<int>, HashSet<object>>), NameOfTypeOptions.Default & ~NameOfTypeOptions.IncludeNamespaces, "Dictionary<List<int>, HashSet<object>>")]
     public void NameOf_SmokeTests(Type type, NameOfTypeOptions options, string expected)
     {
-        string? output = _typeHelper.TryGetNameOf(type, options);
+        string? output = TypeHelper.Instance.TryGetNameOf(type, options);
 
         Assert.That(output, Is.EqualTo(expected));
     }

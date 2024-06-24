@@ -4,14 +4,13 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
 
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
-        <Title>LVK.Core</Title>
+        <Title>LVK.Data.MongoDb</Title>
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <Copyright>Lasse Vågsæther Karlsen $([System.DateTime]::Today.ToString('yyyy')), All rights reserved</Copyright>
         <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
-        <Description>My core routines</Description>
+        <Description>MongoDb Extensions</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -22,16 +21,14 @@
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
+    </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+      <PackageReference Include="MongoDB.Driver" Version="2.26.0" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -46,17 +43,4 @@
         <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
         <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="Extensions\CancellationTokenAwaiter.cs">
-            <DependentUpon>CancellationTokenExtensions.cs</DependentUpon>
-        </Compile>
-        <Compile Update="Caching\ManualWeakCache.cs">
-          <DependentUpon>WeakCache.cs</DependentUpon>
-        </Compile>
-        <Compile Update="Caching\AutoWeakCache.cs">
-          <DependentUpon>WeakCache.cs</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
 </Project>

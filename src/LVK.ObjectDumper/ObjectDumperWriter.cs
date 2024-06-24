@@ -1,5 +1,3 @@
-using System.Globalization;
-
 using LVK.Typed;
 
 namespace LVK.ObjectDumper;
@@ -7,19 +5,17 @@ namespace LVK.ObjectDumper;
 internal class ObjectDumperWriter : IObjectDumperWriter
 {
     private readonly TextWriter _target;
-    private readonly ITypeHelper _typeHelper;
     private readonly ObjectDumperOptions _options;
     private readonly Dictionary<object, int> _objectIds = new();
     private readonly Stack<string> _blocks = new();
 
-    private int _indentationLevel = 0;
+    private int _indentationLevel;
     private string _indentationTemp;
     private bool _isFirstLine = true;
 
-    public ObjectDumperWriter(TextWriter target, ITypeHelper typeHelper, ObjectDumperOptions options)
+    public ObjectDumperWriter(TextWriter target, ObjectDumperOptions options)
     {
         _target = target;
-        _typeHelper = typeHelper;
         _options = options;
         _indentationTemp = new string(' ', options.IndentationSize * 8);
     }
@@ -53,7 +49,7 @@ internal class ObjectDumperWriter : IObjectDumperWriter
         _indentationLevel--;
     }
 
-    public string FormatType(Type type) => _typeHelper.NameOf(type, _options.NameOfTypeOptions);
+    public string FormatType(Type type) => TypeHelper.Instance.NameOf(type, _options.NameOfTypeOptions);
 
     public void WriteFormatted(string name, object value, string formatted, out bool isFirstTime)
     {

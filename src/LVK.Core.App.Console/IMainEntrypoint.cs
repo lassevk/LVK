@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace LVK.Core.App.Console;
 
 public interface IMainEntrypoint

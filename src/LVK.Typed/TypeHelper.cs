@@ -1,22 +1,53 @@
-﻿using LVK.Typed.Rules;
+﻿using LVK.Core;
+using LVK.Typed.Rules;
 
 namespace LVK.Typed;
 
-internal class TypeHelper : ITypeHelper
+public class TypeHelper : ITypeHelper
 {
-    private readonly List<ITypeNameRule> _typeNameRules;
+    private readonly List<ITypeNameRule> _typeNameRules = new();
+    private readonly ReaderWriterLockSlim _lock = new(LockRecursionPolicy.SupportsRecursion);
 
-    public TypeHelper(IEnumerable<ITypeNameRule> nameOfRules)
+    public static ITypeHelper Instance { get; } = CreateDefaultTypeHelper();
+
+    private static ITypeHelper CreateDefaultTypeHelper()
     {
-        ArgumentNullException.ThrowIfNull(nameOfRules);
+        var result = new TypeHelper();
+        result.AddRule(new GenericTypeNameRule());
+        result.AddRule(new NormalTypeNameRule());
+        result.AddRule(new NullableTypeNameRule());
+        result.AddRule(new CSharpKeywordTypeNameRule());
+        return result;
+    }
 
-        _typeNameRules = nameOfRules.OrderBy(r => r.Priority).ToList();
+    public void AddRule(ITypeNameRule rule)
+    {
+        Guard.NotNull(rule);
+
+        _lock.EnterWriteLock();
+        try
+        {
+            _typeNameRules.Add(rule);
+            _typeNameRules.Sort((r1, r2) => r1.Priority.CompareTo(r2.Priority));
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
+        }
     }
 
     string? ITypeHelper.TryGetNameOf(Type type, NameOfTypeOptions options)
     {
         ArgumentNullException.ThrowIfNull(type);
 
-        return _typeNameRules.Select(r => r.TryGetNameOfType(type, this, options)).FirstOrDefault(n => !(n is null));
+        _lock.EnterReadLock();
+        try
+        {
+            return _typeNameRules.Select(r => r.TryGetNameOfType(type, this, options)).FirstOrDefault(n => !(n is null));
+        }
+        finally
+        {
+            _lock.ExitReadLock();
+        }
     }
 }

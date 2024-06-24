@@ -13,7 +13,7 @@ internal class ObjectDumperContext : IObjectDumperContext
 
     private int _recursionLevel;
 
-    public ObjectDumperContext(List<IObjectDumperRule> rules, ITypeHelper typeHelper, ObjectDumperOptions options, TextWriter target)
+    public ObjectDumperContext(List<IObjectDumperRule> rules, ObjectDumperOptions options, TextWriter target)
     {
         foreach (IObjectDumperRule rule in rules.OrderByDescending(rule => rule.Priority))
         {
@@ -23,7 +23,7 @@ internal class ObjectDumperContext : IObjectDumperContext
 
         _rules = rules.OrderBy(rule => rule.Priority).ToList();
         Options = options;
-        Writer = new ObjectDumperWriter(target, typeHelper, options);
+        Writer = new ObjectDumperWriter(target, options);
     }
 
     public IObjectDumperWriter Writer { get; }

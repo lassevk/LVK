@@ -1,6 +1,6 @@
 namespace LVK.ObjectDumper.Tests;
 
-public class ObjectDumperComplexObjectTests : ObjectDumperTestBase
+public class ObjectDumperComplexObjectTests
 {
     [Test]
     public void Dump()
@@ -19,7 +19,7 @@ public class ObjectDumperComplexObjectTests : ObjectDumperTestBase
             },
         };
 
-        string output = Dumper.Dump(input);
+        string output = ObjectDumper.Instance.Dump(input);
 
         var expected = """
                        <0> input = { What = 42, Why = Meaning of life, Who = { Name = Douglas Adams, Books = System... [.<>f__AnonymousType0<System.Int32, System.String, .<>f__AnonymousType1<System.String, System.String[]>>]

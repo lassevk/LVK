@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 
+using JetBrains.Annotations;
+
 using LVK.Core.App.Console.CommandLineInterface;
 using LVK.Core.App.Console.CommandLineInterface.RoutableCommandsProviders;
 
@@ -9,7 +11,7 @@ namespace LVK.Core.App.Console;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMainEntrypoint<T>(this IServiceCollection services)
+    public static IServiceCollection AddMainEntrypoint<[MeansImplicitUse] T>(this IServiceCollection services)
         where T : class, IMainEntrypoint
         => services.AddTransient<IMainEntrypoint, T>();
 
@@ -19,7 +21,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterRoutableCommandsInAssembly(this IServiceCollection services, Assembly assembly)
         => services.AddSingleton(AssemblyRoutableCommandsProvider.Register(services, assembly));
 
-    public static IServiceCollection RegisterRoutableCommand<T>(this IServiceCollection services)
+    public static IServiceCollection RegisterRoutableCommand<[MeansImplicitUse] T>(this IServiceCollection services)
         where T : ICommand
         => services.AddSingleton(TypeRoutableCommandProvider.Register(services, typeof(T)));
 

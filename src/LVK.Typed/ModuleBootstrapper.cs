@@ -1,5 +1,4 @@
 ﻿using LVK.Core.Bootstrapping;
-using LVK.Typed.Rules;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,11 +11,6 @@ public class ModuleBootstrapper : IModuleBootstrapper
     {
         bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
 
-        builder.Services.AddSingleton<ITypeHelper, TypeHelper>();
-
-        builder.Services.AddSingleton<ITypeNameRule, CSharpKeywordTypeNameRule>();
-        builder.Services.AddSingleton<ITypeNameRule, GenericTypeNameRule>();
-        builder.Services.AddSingleton<ITypeNameRule, NormalTypeNameRule>();
-        builder.Services.AddSingleton<ITypeNameRule, NullableTypeNameRule>();
+        builder.Services.AddSingleton(TypeHelper.Instance);
     }
 }

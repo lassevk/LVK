@@ -4,7 +4,7 @@ using NUnit.Framework.Internal;
 
 namespace LVK.ObjectDumper.Tests;
 
-public class ObjectDumperNumericTests : ObjectDumperTestBase
+public class ObjectDumperNumericTests
 {
     [Test]
     [TestCase("Value", (long)10, "Value = 10 [System.Int64]")]
@@ -19,14 +19,14 @@ public class ObjectDumperNumericTests : ObjectDumperTestBase
     [TestCase("Value", (double)20.789, "Value = 20.789 [System.Double]")]
     public void Dump_WithTestCases(string name, object value, string expected)
     {
-        string output = Dumper.Dump(name, value);
+        string output = ObjectDumper.Instance.Dump(name, value);
         Assert.That(output, Is.EqualTo(expected));
     }
 
     [Test]
     public void Dump_DecimalType()
     {
-        string output = Dumper.Dump("Value", 19.456M);
+        string output = ObjectDumper.Instance.Dump("Value", 19.456M);
         Assert.That(output, Is.EqualTo("Value = 19.456 [System.Decimal]"));
     }
 }
