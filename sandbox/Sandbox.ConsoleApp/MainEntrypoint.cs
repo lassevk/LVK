@@ -12,46 +12,54 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+
+using Sandbox.ConsoleApp.Models;
 
 namespace Sandbox.ConsoleApp;
 
 public class MainEntrypoint : IMainEntrypoint
 {
-    private readonly IMongoCollection<Credentials<UsernamePasswordCredentials>> _credentialsCollection;
+    private readonly IMongoCollection<RootModel> _rootCollection;
 
-    public MainEntrypoint(IMongoCollection<Credentials<UsernamePasswordCredentials>> credentialsCollection)
+    public MainEntrypoint(IMongoCollection<RootModel> rootCollection)
     {
-        _credentialsCollection = credentialsCollection;
+        _rootCollection = rootCollection;
     }
 
     public async Task<int> RunAsync(CancellationToken stoppingToken)
     {
         await Task.Yield();
 
-        await _credentialsCollection.DeleteManyAsync(_ => true, cancellationToken: stoppingToken);
+        await _rootCollection.DeleteManyAsync(_ => true, cancellationToken: stoppingToken);
 
-        var root = new Credentials<UsernamePasswordCredentials>
+        await _rootCollection.InsertOneAsync(new RootModel
         {
-            Identifier = "root",
-            Data = new UsernamePasswordCredentials
+            Item = new StringItem
             {
-                Username = "u123", Password = "p456",
+                Value = "This is a string",
             },
-        };
-
-        await _credentialsCollection.InsertOneAsync(root, cancellationToken: stoppingToken);
-
-        var child = new Credentials<UsernamePasswordCredentials>
+        }, null, stoppingToken);
+        await _rootCollection.InsertOneAsync(new RootModel
         {
-            Identifier = "child",
-            Data = new UsernamePasswordCredentials
+            Item = new PersonItem
             {
-                Username = "u123", Password = "p456",
+                FirstName = "First",
+                MiddleName = "Middle",
+                LastName = "Last",
             },
-            ParentId = root.Id,
-        };
+        }, null, stoppingToken);
+        await _rootCollection.InsertOneAsync(new RootModel
+        {
+            Item = new PersonItem
+            {
+                FirstName = "First",
+                LastName = "Middle",
+            },
+        }, null, stoppingToken);
 
-        await _credentialsCollection.InsertOneAsync(child, cancellationToken: stoppingToken);
+        foreach (RootModel? model in await _rootCollection.AsQueryable().Where(r => r.Item is PersonItem).ToListAsync(stoppingToken))
+            Console.WriteLine(model);
 
         Console.WriteLine("DONE");
         return 0;

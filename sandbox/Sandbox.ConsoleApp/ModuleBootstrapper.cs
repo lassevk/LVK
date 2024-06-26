@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 
 using MongoDB.Driver;
 
+using Sandbox.ConsoleApp.Models;
+
 namespace Sandbox.ConsoleApp;
 
 public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilder, IHost>
@@ -31,6 +33,6 @@ public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilde
 
         builder.Services.AddMongoClient(builder.Configuration.GetConnectionString("MongoDB")!);
         builder.Services.AddMongoDatabase(builder.Configuration["SSK:DatabaseName"]!);
-        builder.Services.AddMongoCollection<Credentials<UsernamePasswordCredentials>>();
+        builder.Services.AddMongoCollection<RootModel>();
     }
 }
