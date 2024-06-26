@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace LVK.Data.MongoDb;
 
-public abstract class MongoDbDocument
+public record MongoDbDocument
 {
     /// <summary>
     /// Gets or sets the unique Object Id of this document.

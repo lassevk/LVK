@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
         => services.AddKeyedSingleton<IMongoDatabase>(serviceKey, database);
 
     public static IServiceCollection AddKeyedMongoDatabase(this IServiceCollection services, object? serviceKey, string? databaseName)
-        => services.AddKeyedSingleton<IMongoDatabase>(serviceKey, (IServiceProvider sp, object? sk) => sp.GetRequiredKeyedService<IMongoClient>(sk).GetDatabase(databaseName));
+        => services.AddKeyedSingleton<IMongoDatabase>(serviceKey, (sp, sk) => sp.GetRequiredKeyedService<IMongoClient>(sk).GetDatabase(databaseName));
 
     public static IServiceCollection AddMongoCollection<T>(this IServiceCollection services, string collectionName)
         => services.AddSingleton<IMongoCollection<T>>(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<T>(collectionName));
@@ -32,9 +32,9 @@ public static class ServiceCollectionExtensions
         => services.AddSingleton<IMongoCollection<T>>(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<T>());
 
     public static IServiceCollection AddKeyedMongoCollection<T>(this IServiceCollection services, object? serviceKey, string collectionName)
-        => services.AddKeyedSingleton<IMongoCollection<T>>(serviceKey, (IServiceProvider sp, object? sk) => sp.GetRequiredKeyedService<IMongoDatabase>(sk).GetCollection<T>(collectionName));
+        => services.AddKeyedSingleton<IMongoCollection<T>>(serviceKey, (sp, sk) => sp.GetRequiredKeyedService<IMongoDatabase>(sk).GetCollection<T>(collectionName));
 
     public static IServiceCollection AddKeyedMongoCollection<T>(this IServiceCollection services, object? serviceKey)
         where T : MongoDbDocument
-        => services.AddKeyedSingleton<IMongoCollection<T>>(serviceKey, (IServiceProvider sp, object? sk) => sp.GetRequiredKeyedService<IMongoDatabase>(sk).GetCollection<T>());
+        => services.AddKeyedSingleton<IMongoCollection<T>>(serviceKey, (sp, sk) => sp.GetRequiredKeyedService<IMongoDatabase>(sk).GetCollection<T>());
 }
