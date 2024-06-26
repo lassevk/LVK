@@ -11,9 +11,9 @@ public sealed class ModuleBootstrapper : IModuleBootstrapper
 {
     public void Bootstrap(IHostBootstrapper bootstrapper, IHostApplicationBuilder builder)
     {
+        bootstrapper.Bootstrap(new LVK.Typed.ModuleBootstrapper());
+
         BsonSerializer.RegisterSerializer(new DateOnlySerializer());
         BsonSerializer.RegisterSerializer(new TimeOnlySerializer());
-
-        bootstrapper.Bootstrap(new LVK.Typed.ModuleBootstrapper());
     }
 }
