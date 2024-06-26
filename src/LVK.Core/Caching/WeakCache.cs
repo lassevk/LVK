@@ -81,7 +81,7 @@ public abstract class WeakCache<TKey, TValue>
                 return value!;
 
             value = factory(key);
-            Guard.Assume(value != null);
+            Assume.That(value != null);
 
             _cache[key] = new WeakReference(value);
             return value;

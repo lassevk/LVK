@@ -58,7 +58,7 @@ public class MainEntrypoint : IMainEntrypoint
             },
         }, null, stoppingToken);
 
-        foreach (RootModel? model in await _rootCollection.AsQueryable().Where(r => r.Item is PersonItem).ToListAsync(stoppingToken))
+        await foreach (RootModel? model in _rootCollection.AsQueryable().Where(r => r.Item is PersonItem).AsAsyncEnumerable(stoppingToken))
             Console.WriteLine(model);
 
         Console.WriteLine("DONE");

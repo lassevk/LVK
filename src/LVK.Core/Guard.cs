@@ -2,10 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
+using JetBrains.Annotations;
+
 namespace LVK.Core;
 
 public static class Guard
 {
+    [ContractAnnotation("value:null => halt")]
     public static void NotNull(object value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
             [CallerMemberName] string? callerMemberName = null,
             [CallerFilePath] string? callerFilePath = null,
@@ -15,6 +18,7 @@ public static class Guard
             throw new ArgumentNullException(valueExpression, $"{valueExpression} cannot be null, in {callerMemberName} at {callerFilePath}#{callerLineNumber}");
     }
 
+    [ContractAnnotation("value:null => halt")]
     public static void NotNullOrEmpty(string value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
         [CallerMemberName] string? callerMemberName = null,
         [CallerFilePath] string? callerFilePath = null,
@@ -24,6 +28,7 @@ public static class Guard
             throw new ArgumentNullException(valueExpression, $"{valueExpression} cannot be null or empty string, in {callerMemberName} at {callerFilePath}#{callerLineNumber}");
     }
 
+    [ContractAnnotation("value:null => halt")]
     public static void NotNullOrEmpty(ReadOnlySpan<char> value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
         [CallerMemberName] string? callerMemberName = null,
         [CallerFilePath] string? callerFilePath = null,
@@ -33,6 +38,7 @@ public static class Guard
             throw new ArgumentNullException(valueExpression, $"{valueExpression} cannot be null or empty string, in {callerMemberName} at {callerFilePath}#{callerLineNumber}");
     }
 
+    [ContractAnnotation("value:null => halt")]
     public static void NotNullOrWhiteSpace(string value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
         [CallerMemberName] string? callerMemberName = null,
         [CallerFilePath] string? callerFilePath = null,
@@ -42,6 +48,7 @@ public static class Guard
             throw new ArgumentNullException(valueExpression, $"{valueExpression} cannot be null or consisting only of whitespace, in {callerMemberName} at {callerFilePath}#{callerLineNumber}");
     }
 
+    [ContractAnnotation("value:null => halt")]
     public static void NotNullOrWhiteSpace(ReadOnlySpan<char> value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
         [CallerMemberName] string? callerMemberName = null,
         [CallerFilePath] string? callerFilePath = null,
@@ -124,17 +131,8 @@ public static class Guard
             throw new InvalidOperationException($"Guard failed for '{valueExpression}' in {callerMemberName} at {callerFilePath}#{callerLineNumber}");
     }
 
+    [ContractAnnotation("value:false => halt")]
     public static void Assert([DoesNotReturnIf(false)] bool value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
-        [CallerMemberName] string? callerMemberName = null,
-        [CallerFilePath] string? callerFilePath = null,
-        [CallerLineNumber] int? callerLineNumber = null)
-    {
-        if (!value)
-            throw new InvalidOperationException($"Guard failed for '{valueExpression}' in {callerMemberName} at {callerFilePath}#{callerLineNumber}");
-    }
-
-    [Conditional("DEBUG")]
-    public static void Assume([DoesNotReturnIf(false)] bool value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null,
         [CallerMemberName] string? callerMemberName = null,
         [CallerFilePath] string? callerFilePath = null,
         [CallerLineNumber] int? callerLineNumber = null)
