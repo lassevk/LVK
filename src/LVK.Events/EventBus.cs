@@ -19,6 +19,28 @@ internal class EventBus : IEventBus
         _serviceProvider = serviceProvider;
     }
 
+    IDisposable IEventBus.Subscribe<T>(object? group, IEventSubscriber<T> subscriber)
+    {
+        Guard.NotNull(subscriber);
+
+        var wrapper = new WeakReference<IEventSubscriber<T>>(subscriber);
+        IDisposable subscription = null!;
+
+        subscription = ((IEventBus)this).Subscribe<T>(group, async (evt, ct) =>
+        {
+            if (!wrapper.TryGetTarget(out IEventSubscriber<T>? tempSubscriber))
+            {
+                // ReSharper disable once AccessToModifiedClosure
+                subscription.Dispose();
+                return;
+            }
+
+            await tempSubscriber.OnEvent(evt, ct);
+        });
+
+        return subscription;
+    }
+
     IDisposable IEventBus.Subscribe<T>(object? group, Func<T, CancellationToken, Task> subscriber)
     {
         ArgumentNullException.ThrowIfNull(subscriber);
