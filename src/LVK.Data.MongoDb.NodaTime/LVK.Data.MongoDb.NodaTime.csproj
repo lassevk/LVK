@@ -4,8 +4,24 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
+        <Title>LVK.Data.MongoDb.NodaTime</Title>
+        <Authors>Lasse Vågsæther Karlsen</Authors>
+        <Copyright>Lasse Vågsæther Karlsen $([System.DateTime]::Today.ToString('yyyy')), All rights reserved</Copyright>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
+        <Description>NodaTime support for MongoDb</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSource>true</EmbedUntrackedSource>
+        <DebugType>embedded</DebugType>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+    
     <ItemGroup>
       <ProjectReference Include="..\LVK.Data.MongoDb\LVK.Data.MongoDb.csproj" />
       <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
@@ -13,6 +29,18 @@
 
     <ItemGroup>
       <PackageReference Include="MongoDb.Bson.NodaTime" Version="3.0.0" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="MinVer" Version="4.3.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    </ItemGroup>
 </Project>

@@ -4,10 +4,26 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
+        <Title>LVK.Extensions.Logging.Serilog</Title>
+        <Authors>Lasse Vågsæther Karlsen</Authors>
+        <Copyright>Lasse Vågsæther Karlsen $([System.DateTime]::Today.ToString('yyyy')), All rights reserved</Copyright>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
+        <Description>Serilog Configuration</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSource>true</EmbedUntrackedSource>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,5 +39,10 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     </ItemGroup>
 </Project>

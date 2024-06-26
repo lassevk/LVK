@@ -21,14 +21,14 @@
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
-      <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MongoDB.Driver" Version="2.26.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.26.0" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
