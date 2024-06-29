@@ -3,6 +3,7 @@ using LVK.Core.App.Console.ConsoleApplication;
 using LVK.Core.Bootstrapping;
 
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Systemd;
 
 namespace LVK.Core.App.Console;
 
@@ -14,7 +15,10 @@ public static class ApplicationInstanceExtensions
         Guard.NotNull(args);
         Guard.NotNull(applicationBootstrappers);
 
-        return application.BootstrapAndBuild(Host.CreateApplicationBuilder(args), b => b.Build(), [..applicationBootstrappers, new ConsoleApplicationBootstrapper()]).RunAsync();
+        HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder(args);
+        hostApplicationBuilder.Services.AddSystemd();
+
+        return application.BootstrapAndBuild(hostApplicationBuilder, b => b.Build(), [..applicationBootstrappers, new ConsoleApplicationBootstrapper()]).RunAsync();
     }
 
     public static Task RunAsConsole(this IApplication application, params IApplicationBootstrapper<HostApplicationBuilder, IHost>[] applicationBootstrappers)
@@ -22,7 +26,10 @@ public static class ApplicationInstanceExtensions
         Guard.NotNull(application);
         Guard.NotNull(applicationBootstrappers);
 
-        return application.BootstrapAndBuild(Host.CreateApplicationBuilder(), b => b.Build(), [..applicationBootstrappers, new ConsoleApplicationBootstrapper()]).RunAsync();
+        HostApplicationBuilder hostApplicationBuilder = Host.CreateApplicationBuilder();
+        hostApplicationBuilder.Services.AddSystemd();
+
+        return application.BootstrapAndBuild(hostApplicationBuilder, b => b.Build(), [..applicationBootstrappers, new ConsoleApplicationBootstrapper()]).RunAsync();
     }
 
     public static Task RunAsCommandLineInterface(this IApplication application, string[] args, params IApplicationBootstrapper<HostApplicationBuilder, IHost>[] applicationBootstrappers)

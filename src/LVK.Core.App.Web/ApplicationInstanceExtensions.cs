@@ -1,6 +1,7 @@
 ﻿using LVK.Core.Bootstrapping;
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 
 namespace LVK.Core.App.Web;
 
@@ -12,6 +13,9 @@ public static class ApplicationInstanceExtensions
         Guard.NotNull(args);
         Guard.NotNull(applicationBootstrapper);
 
-        return application.BootstrapAndBuild(WebApplication.CreateBuilder(args), b => b.Build(), applicationBootstrapper, new WebApplicationBootstrapper()).RunAsync();
+        WebApplicationBuilder webApplicationBuilder = WebApplication.CreateBuilder(args);
+        webApplicationBuilder.Services.AddSystemd();
+
+        return application.BootstrapAndBuild(webApplicationBuilder, b => b.Build(), applicationBootstrapper, new WebApplicationBootstrapper()).RunAsync();
     }
 }
