@@ -54,4 +54,10 @@
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.Typed\LVK.Typed.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>LVK.ObjectDumper.Tests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>

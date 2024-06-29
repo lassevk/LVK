@@ -53,4 +53,14 @@
     <ItemGroup>
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>LVK.Events.Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
 </Project>
