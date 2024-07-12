@@ -2,7 +2,9 @@
 using System.Reflection;
 using System.Text.Json;
 
+using LVK.Core;
 using LVK.Core.App.Console;
+using LVK.Core.Results;
 using LVK.Data.BlobStorage;
 using LVK.Data.MongoDb;
 using LVK.Security.OnePassword;
@@ -20,48 +22,25 @@ namespace Sandbox.ConsoleApp;
 
 public class MainEntrypoint : IMainEntrypoint
 {
-    private readonly IMongoCollection<RootModel> _rootCollection;
-
-    public MainEntrypoint(IMongoCollection<RootModel> rootCollection)
-    {
-        _rootCollection = rootCollection;
-    }
-
     public async Task<int> RunAsync(CancellationToken stoppingToken)
     {
         await Task.Yield();
 
-        await _rootCollection.DeleteManyAsync(_ => true, cancellationToken: stoppingToken);
-
-        await _rootCollection.InsertOneAsync(new RootModel
-        {
-            Item = new StringItem
-            {
-                Value = "This is a string",
-            },
-        }, null, stoppingToken);
-        await _rootCollection.InsertOneAsync(new RootModel
-        {
-            Item = new PersonItem
-            {
-                FirstName = "First",
-                MiddleName = "Middle",
-                LastName = "Last",
-            },
-        }, null, stoppingToken);
-        await _rootCollection.InsertOneAsync(new RootModel
-        {
-            Item = new PersonItem
-            {
-                FirstName = "First",
-                LastName = "Middle",
-            },
-        }, null, stoppingToken);
-
-        await foreach (RootModel? model in _rootCollection.AsQueryable().Where(r => r.Item is PersonItem).AsAsyncEnumerable(stoppingToken))
-            Console.WriteLine(model);
+        Result<FileInfo> result = GetFile(@"D:\Temp\test.yml");
+        result.Match(onSuccess: fi => Console.WriteLine($"File exists: {fi.FullName}"), onFailure: error => Console.WriteLine(error));
 
         Console.WriteLine("DONE");
-        return 0;
+        return result.Match(_ => 0, _ => 1);
     }
+
+    private Result<FileInfo> GetFile(string path)
+    {
+        var fi = new FileInfo(path);
+        if (fi.Exists)
+            return Result.Success(fi);
+
+        return Result.Failure<FileInfo>(new FileNotFoundError($"File does not exist, '{path}'"));
+    }
+
+    private record FileNotFoundError(string Message) : Error;
 }

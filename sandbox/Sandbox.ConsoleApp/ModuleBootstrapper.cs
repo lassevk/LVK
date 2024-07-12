@@ -30,9 +30,5 @@ public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilde
            .Bootstrap(new LVK.Data.MongoDb.ModuleBootstrapper());
 
         builder.Services.AddMainEntrypoint<MainEntrypoint>();
-
-        builder.Services.AddMongoClient(builder.Configuration.GetConnectionString("MongoDB")!);
-        builder.Services.AddMongoDatabase(builder.Configuration["SSK:DatabaseName"]!);
-        builder.Services.AddMongoCollection<RootModel>();
     }
 }
