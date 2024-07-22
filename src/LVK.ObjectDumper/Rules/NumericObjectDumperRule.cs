@@ -1,14 +1,8 @@
-using System.Globalization;
-
 namespace LVK.ObjectDumper.Rules;
 
 public class NumericObjectDumperRule : IObjectDumperRule
 {
-    private readonly HashSet<Type> _supportedTypes = [
-        typeof(decimal),
-        typeof(float),
-        typeof(double),
-    ];
+    private readonly HashSet<Type> _supportedTypes = [typeof(decimal), typeof(float), typeof(double)];
 
     public Type[] GetKnownSupportedTypes() => _supportedTypes.ToArray();
 

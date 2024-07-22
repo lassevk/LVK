@@ -9,11 +9,13 @@ public class TestHost : IHost
         Services = serviceProvider;
     }
 
-    public void Dispose() { }
+    public void Dispose()
+    {
+    }
 
-    public Task StartAsync(CancellationToken cancellationToken = new CancellationToken()) => Task.CompletedTask;
+    public Task StartAsync(CancellationToken cancellationToken = new()) => Task.CompletedTask;
 
-    public Task StopAsync(CancellationToken cancellationToken = new CancellationToken()) => Task.CompletedTask;
+    public Task StopAsync(CancellationToken cancellationToken = new()) => Task.CompletedTask;
 
     public IServiceProvider Services { get; }
 }

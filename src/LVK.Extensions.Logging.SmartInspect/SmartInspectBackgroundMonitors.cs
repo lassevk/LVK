@@ -7,12 +7,11 @@ namespace LVK.Extensions.Logging.SmartInspect;
 
 internal class SmartInspectBackgroundMonitors : IHostedService
 {
-    private CancellationTokenSource? _cancellationTokenSource;
     private readonly Session _session;
+    private CancellationTokenSource? _cancellationTokenSource;
     private SmartInspectLoggerConfiguration _configuration;
 
-    public SmartInspectBackgroundMonitors(Session session,
-        IOptionsMonitor<SmartInspectLoggerConfiguration> configurationMonitor)
+    public SmartInspectBackgroundMonitors(Session session, IOptionsMonitor<SmartInspectLoggerConfiguration> configurationMonitor)
     {
         _session = session;
         _configuration = configurationMonitor.CurrentValue;
@@ -30,10 +29,16 @@ internal class SmartInspectBackgroundMonitors : IHostedService
         return Task.CompletedTask;
     }
 
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        _cancellationTokenSource?.Cancel();
+        return Task.CompletedTask;
+    }
+
     private void StartStopMonitors()
     {
         _cancellationTokenSource?.Cancel();
-        _cancellationTokenSource = new();
+        _cancellationTokenSource = new CancellationTokenSource();
 
         if (_configuration.Monitors.Cpu)
             _ = new CpuMonitor(_session, _cancellationTokenSource.Token).Run();
@@ -43,11 +48,5 @@ internal class SmartInspectBackgroundMonitors : IHostedService
 
         if (_configuration.Monitors.Memory)
             _ = new MemoryMonitor(_session, _cancellationTokenSource.Token).Run();
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        _cancellationTokenSource?.Cancel();
-        return Task.CompletedTask;
     }
 }

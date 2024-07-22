@@ -26,8 +26,8 @@ internal class RoutableCommandParsableOption : RoutableCommandOption
             return;
         }
 
-        MethodInfo? parse = _targetType.GetMethods(BindingFlags.Static | BindingFlags.Public)
-           .FirstOrDefault(c => c.Name == "Parse" && c.GetParameters().Length == 2 && c.GetParameters()[0].ParameterType == typeof(string) && c.GetParameters()[1].ParameterType == typeof(IFormatProvider));
+        MethodInfo? parse = _targetType.GetMethods(BindingFlags.Static | BindingFlags.Public).FirstOrDefault(c
+            => c.Name == "Parse" && c.GetParameters().Length == 2 && c.GetParameters()[0].ParameterType == typeof(string) && c.GetParameters()[1].ParameterType == typeof(IFormatProvider));
 
         _value = parse?.Invoke(null, [argument, null]);
     }

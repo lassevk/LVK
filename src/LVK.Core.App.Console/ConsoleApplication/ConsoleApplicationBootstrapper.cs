@@ -9,7 +9,7 @@ internal class ConsoleApplicationBootstrapper : IApplicationBootstrapper<HostApp
 {
     public void Bootstrap(IHostBootstrapper<HostApplicationBuilder, IHost> bootstrapper, HostApplicationBuilder builder)
     {
-        bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new ModuleBootstrapper());
 
         builder.Services.AddHostedService<MainEntrypointRunner>();
     }

@@ -1,14 +1,35 @@
 using LVK.ObjectDumper.Rules;
-using LVK.Typed;
 
 namespace LVK.ObjectDumper;
 
 public class ObjectDumper : IObjectDumper
 {
-    private readonly List<IObjectDumperRule> _rules = new();
     private readonly object _lock = new();
+    private readonly List<IObjectDumperRule> _rules = new();
 
     public static IObjectDumper Instance { get; } = CreateDefaultObjectDumper();
+
+    public void AddRule(IObjectDumperRule rule)
+    {
+        if (rule == null)
+            throw new ArgumentNullException(nameof(rule));
+
+        lock (_rules)
+        {
+            _rules.Add(rule);
+        }
+    }
+
+    public void Dump(string name, object value, TextWriter target, ObjectDumperOptions? options = null)
+    {
+        List<IObjectDumperRule> rules;
+        lock (_rules)
+        {
+            rules = _rules.ToList();
+        }
+
+        new ObjectDumperContext(rules, options ?? new ObjectDumperOptions(), target).Dump(name, value, true);
+    }
 
     private static IObjectDumper CreateDefaultObjectDumper()
     {
@@ -32,27 +53,5 @@ public class ObjectDumper : IObjectDumper
         result.AddRule(new ExceptionObjectDumperRule());
 
         return result;
-    }
-
-    public void AddRule(IObjectDumperRule rule)
-    {
-        if (rule == null)
-            throw new ArgumentNullException(nameof(rule));
-
-        lock (_rules)
-        {
-            _rules.Add(rule);
-        }
-    }
-
-    public void Dump(string name, object value, TextWriter target, ObjectDumperOptions? options = null)
-    {
-        List<IObjectDumperRule> rules;
-        lock (_rules)
-        {
-            rules = _rules.ToList();
-        }
-
-        new ObjectDumperContext(rules, options ?? new(), target).Dump(name, value, true);
     }
 }

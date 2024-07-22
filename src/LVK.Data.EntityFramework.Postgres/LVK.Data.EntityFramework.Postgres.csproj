@@ -23,8 +23,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
-        <ProjectReference Include="..\LVK.Data.EntityFramework\LVK.Data.EntityFramework.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\LVK.Data.EntityFramework\LVK.Data.EntityFramework.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -36,11 +36,11 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
-        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"/>
     </ItemGroup>
 </Project>

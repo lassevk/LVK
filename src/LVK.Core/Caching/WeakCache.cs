@@ -1,28 +1,26 @@
-using System.Collections;
-
 namespace LVK.Core.Caching;
 
 public static class WeakCache
 {
     public static ManualWeakCache<TKey, TValue> Create<TKey, TValue>()
         where TKey : notnull
-        where TValue: class
+        where TValue : class
         => Create<TKey, TValue>(EqualityComparer<TKey>.Default);
 
     public static ManualWeakCache<TKey, TValue> Create<TKey, TValue>(IEqualityComparer<TKey> comparer)
         where TKey : notnull
         where TValue : class
-        => new ManualWeakCache<TKey, TValue>(comparer);
+        => new(comparer);
 
     public static AutoWeakCache<TKey, TValue> Create<TKey, TValue>(Func<TKey, TValue> calculate)
         where TKey : notnull
         where TValue : class
-        => Create<TKey, TValue>(calculate, EqualityComparer<TKey>.Default);
+        => Create(calculate, EqualityComparer<TKey>.Default);
 
     public static AutoWeakCache<TKey, TValue> Create<TKey, TValue>(Func<TKey, TValue> calculate, IEqualityComparer<TKey> comparer)
         where TKey : notnull
         where TValue : class
-        => new AutoWeakCache<TKey, TValue>(calculate, comparer);
+        => new(calculate, comparer);
 }
 
 public abstract class WeakCache<TKey, TValue>
@@ -31,7 +29,7 @@ public abstract class WeakCache<TKey, TValue>
 {
     private readonly Dictionary<TKey, WeakReference> _cache;
 
-    private readonly object _lock = new object();
+    private readonly object _lock = new();
 
     protected WeakCache(IEqualityComparer<TKey> comparer)
     {

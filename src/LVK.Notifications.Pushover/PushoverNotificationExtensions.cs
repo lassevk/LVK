@@ -40,7 +40,6 @@ public static class PushoverNotificationExtensions
             TimeToLive = seconds,
         };
 
-
     public static PushoverNotification WithSound(this PushoverNotification notification, PushoverNotificationSound sound)
         => notification with
         {

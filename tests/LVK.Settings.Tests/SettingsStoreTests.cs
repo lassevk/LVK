@@ -16,6 +16,7 @@ public class SettingsStoreTests
         {
             A = a, B = b,
         };
+
         var store = new SettingsStore(Substitute.For<ITypeHelper>());
 
         await store.SaveAsync("TEST", settings);

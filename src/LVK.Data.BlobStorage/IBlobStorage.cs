@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace LVK.Data.BlobStorage;
 
 public interface IBlobStorage

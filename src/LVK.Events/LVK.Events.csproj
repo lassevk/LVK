@@ -23,10 +23,10 @@
             <DependentUpon>IEventBus.cs</DependentUpon>
         </Compile>
         <Compile Update="IEventSubscriber.cs">
-          <DependentUpon>IEventBus.cs</DependentUpon>
+            <DependentUpon>IEventBus.cs</DependentUpon>
         </Compile>
         <Compile Update="EventBusExtensions.cs">
-          <DependentUpon>IEventBus.cs</DependentUpon>
+            <DependentUpon>IEventBus.cs</DependentUpon>
         </Compile>
     </ItemGroup>
 
@@ -46,12 +46,12 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
-        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

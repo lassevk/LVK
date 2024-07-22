@@ -5,14 +5,9 @@ namespace LVK.ObjectDumper.Rules;
 
 public class NonRecursiveTypesObjectDumperRule : IObjectDumperRule
 {
-    private readonly HashSet<Type> _supportedTypes = [
-        typeof(SecurityIdentifier),
-        typeof(RuntimeArgumentHandle),
-        typeof(RuntimeFieldHandle),
-        typeof(RuntimeMethodHandle),
-        typeof(RuntimeTypeHandle),
-        typeof(Assembly),
-        typeof(AppDomain),
+    private readonly HashSet<Type> _supportedTypes =
+    [
+        typeof(SecurityIdentifier), typeof(RuntimeArgumentHandle), typeof(RuntimeFieldHandle), typeof(RuntimeMethodHandle), typeof(RuntimeTypeHandle), typeof(Assembly), typeof(AppDomain),
     ];
 
     public Type[] GetKnownSupportedTypes() => _supportedTypes.ToArray();

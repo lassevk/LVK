@@ -3,7 +3,6 @@ using LVK.Core.App.Console.ConsoleApplication;
 using LVK.Core.Bootstrapping;
 
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Systemd;
 
 namespace LVK.Core.App.Console;
 

@@ -11,9 +11,9 @@ namespace LVK.Core.App.Console.ConsoleApplication;
 
 internal class MainEntrypointRunner : IHostedService
 {
-    private readonly IMainEntrypoint? _mainEntrypoint;
     private readonly IHostApplicationLifetime _hostLifetime;
     private readonly ILogger<MainEntrypointRunner> _logger;
+    private readonly IMainEntrypoint? _mainEntrypoint;
     private Task<int>? _task;
 
     public MainEntrypointRunner(IHostApplicationLifetime hostApplicationLifetime, ILogger<MainEntrypointRunner> logger, IMainEntrypoint? mainEntrypoint = null)
@@ -29,6 +29,12 @@ internal class MainEntrypointRunner : IHostedService
             _task = RunMainEntryPoint(cancellationToken);
 
         return Task.CompletedTask;
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        if (_task != null)
+            Environment.ExitCode = await _task;
     }
 
     private async Task<int> RunMainEntryPoint(CancellationToken cancellationToken)
@@ -100,11 +106,5 @@ internal class MainEntrypointRunner : IHostedService
 
         using var process = Process.GetCurrentProcess();
         return process.ProcessName;
-    }
-
-    public async Task StopAsync(CancellationToken cancellationToken)
-    {
-        if (_task != null)
-            Environment.ExitCode = await _task;
     }
 }

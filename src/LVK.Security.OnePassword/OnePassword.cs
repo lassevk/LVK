@@ -11,6 +11,7 @@ internal class OnePassword : IOnePassword
     public async Task<OnePasswordItem?> TryGetAsync(string id, CancellationToken cancellationToken)
     {
         string json = await ExecuteAsync(cancellationToken, "item", "get", id, "--format", "json");
+
         // string json = await File.ReadAllTextAsync("/Users/lassevk/item.json", cancellationToken);
         return JsonSerializer.Deserialize<OnePasswordItem>(json, new JsonSerializerOptions
         {

@@ -8,7 +8,7 @@ namespace LVK.Data.MongoDb;
 public static class MongoCollectionExtensions
 {
     public static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(
-        this IMongoCollection<T> collection, FilterDefinition<T>? filter = null, FindOptions<T,T>? options = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        this IMongoCollection<T> collection, FilterDefinition<T>? filter = null, FindOptions<T, T>? options = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         if (filter == null)
         {

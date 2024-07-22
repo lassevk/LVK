@@ -15,6 +15,10 @@ internal abstract class RoutableCommandOption
     public string? ShortName { get; }
     public string MainName => LongName != null ? $"--{LongName}" : $"-{ShortName}";
 
+    public string Description { get; }
+
+    public abstract RoutableCommandOptionArgumentsType ArgumentsType { get; }
+
     public string AllNames()
     {
         List<string> parts = new();
@@ -31,10 +35,6 @@ internal abstract class RoutableCommandOption
         return string.Join(", ", parts);
     }
 
-    public string Description { get; }
-
-    public abstract RoutableCommandOptionArgumentsType ArgumentsType { get; }
-
     public abstract void Parse(string argument);
     public abstract void EndOfArguments();
 
@@ -49,6 +49,7 @@ internal abstract class RoutableCommandOption
             RoutableCommandOptionArgumentsType.Many => ": value [value ...]",
             _                                       => throw new InvalidOperationException($"Unable to provide help text for {nameof(RoutableCommandOptionArgumentsType)}.{ArgumentsType}"),
         };
+
         yield return $"{AllNames()}{argumentsHelp} - {Description}";
 
         foreach (string line in GetValueHelpText())

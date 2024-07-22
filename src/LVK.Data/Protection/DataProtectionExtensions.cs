@@ -31,8 +31,8 @@ public static class DataProtectionExtensions
         if (unprotectedString == null)
             throw new ArgumentNullException(nameof(unprotectedString));
 
-        var unprotectedBytes = System.Text.Encoding.UTF8.GetBytes(unprotectedString);
-        var protectedBytes = dataProtection.Protect(unprotectedBytes, passwordName);
+        byte[] unprotectedBytes = System.Text.Encoding.UTF8.GetBytes(unprotectedString);
+        byte[] protectedBytes = dataProtection.Protect(unprotectedBytes, passwordName);
         return Convert.ToBase64String(protectedBytes);
     }
 
@@ -54,7 +54,7 @@ public static class DataProtectionExtensions
             throw new DataProtectionException($"Unable to unprotect data: {ex.Message}", ex);
         }
 
-        var unprotectedBytes = dataProtection.Unprotect(protectedBytes, passwordName);
+        byte[] unprotectedBytes = dataProtection.Unprotect(protectedBytes, passwordName);
         return System.Text.Encoding.UTF8.GetString(unprotectedBytes);
     }
 
@@ -111,7 +111,7 @@ public static class DataProtectionExtensions
         if (instance is not IEnumerable ie)
             return;
 
-        foreach (var child in ie)
+        foreach (object? child in ie)
             TryUnprotectObject(dataProtection, child, passwordName, done);
     }
 
@@ -130,7 +130,7 @@ public static class DataProtectionExtensions
         if (property.GetIndexParameters().Length > 0)
             return;
 
-        var value = property.GetValue(instance);
+        object? value = property.GetValue(instance);
 
         if (value is null)
             return;

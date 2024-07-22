@@ -30,8 +30,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMongoDatabase(this IServiceCollection services, string databaseName)
         => services.AddSingleton<IMongoDatabase>(serviceProvider => serviceProvider.GetRequiredService<IMongoClient>().GetDatabase(databaseName));
 
-    public static IServiceCollection AddKeyedMongoDatabase(this IServiceCollection services, object? serviceKey, IMongoDatabase database)
-        => services.AddKeyedSingleton(serviceKey, database);
+    public static IServiceCollection AddKeyedMongoDatabase(this IServiceCollection services, object? serviceKey, IMongoDatabase database) => services.AddKeyedSingleton(serviceKey, database);
 
     public static IServiceCollection AddKeyedMongoDatabase(this IServiceCollection services, object? serviceKey, string? databaseName)
         => services.AddKeyedSingleton<IMongoDatabase>(serviceKey, (serviceProvider, key) => serviceProvider.GetRequiredKeyedService<IMongoClient>(key).GetDatabase(databaseName));

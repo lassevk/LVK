@@ -9,9 +9,9 @@ namespace LVK.Core.App.Console.CommandLineInterface.RoutableCommandsProviders;
 
 internal class TypeRoutableCommand : IRoutableCommand
 {
-    private readonly Type _type;
     private readonly Lazy<string> _commandName;
     private readonly Lazy<string> _description;
+    private readonly Type _type;
 
     public TypeRoutableCommand(Type type)
     {
@@ -19,27 +19,6 @@ internal class TypeRoutableCommand : IRoutableCommand
         _commandName = new Lazy<string>(GetCommandName);
         _description = new Lazy<string>(GetDescription);
     }
-
-    private string GetCommandName()
-    {
-        CommandNameAttribute? attribute = _type.GetCustomAttribute<CommandNameAttribute>();
-        string? commandName = attribute?.Name;
-        if (!string.IsNullOrWhiteSpace(commandName))
-            return commandName;
-
-        commandName = _type.Name;
-        if (commandName.EndsWith("Command"))
-            commandName = commandName[..^7];
-
-        return commandName;
-    }
-
-    private string GetDescription()
-    {
-        DescriptionAttribute? attribute = _type.GetCustomAttribute<DescriptionAttribute>();
-        return attribute?.Description ?? "No description provided";
-    }
-
 
     public string Name => _commandName.Value;
 
@@ -60,5 +39,25 @@ internal class TypeRoutableCommand : IRoutableCommand
         InstanceParameterHandler.InjectParameters(command, arguments);
 
         return await command.RunAsync(cancellationToken);
+    }
+
+    private string GetCommandName()
+    {
+        CommandNameAttribute? attribute = _type.GetCustomAttribute<CommandNameAttribute>();
+        string? commandName = attribute?.Name;
+        if (!string.IsNullOrWhiteSpace(commandName))
+            return commandName;
+
+        commandName = _type.Name;
+        if (commandName.EndsWith("Command"))
+            commandName = commandName[..^7];
+
+        return commandName;
+    }
+
+    private string GetDescription()
+    {
+        DescriptionAttribute? attribute = _type.GetCustomAttribute<DescriptionAttribute>();
+        return attribute?.Description ?? "No description provided";
     }
 }

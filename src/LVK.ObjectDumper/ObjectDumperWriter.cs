@@ -4,10 +4,10 @@ namespace LVK.ObjectDumper;
 
 internal class ObjectDumperWriter : IObjectDumperWriter
 {
-    private readonly TextWriter _target;
-    private readonly ObjectDumperOptions _options;
-    private readonly Dictionary<object, int> _objectIds = new();
     private readonly Stack<string> _blocks = new();
+    private readonly Dictionary<object, int> _objectIds = new();
+    private readonly ObjectDumperOptions _options;
+    private readonly TextWriter _target;
 
     private int _indentationLevel;
     private string _indentationTemp;

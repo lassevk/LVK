@@ -10,6 +10,10 @@ internal class GarbageCollectionMonitor
     private static string[] _generationNames = default!;
     private static int[] _trackers = default!;
 
+    private GarbageCollectionMonitor()
+    {
+    }
+
     public static void Start(Session session, CancellationToken token)
     {
         _session = session;
@@ -20,10 +24,6 @@ internal class GarbageCollectionMonitor
         _ = new GarbageCollectionMonitor();
     }
 
-    private GarbageCollectionMonitor()
-    {
-    }
-
     ~GarbageCollectionMonitor()
     {
         if (_token.IsCancellationRequested)
@@ -31,7 +31,7 @@ internal class GarbageCollectionMonitor
 
         for (var index = 0; index <= GC.MaxGeneration; index++)
         {
-            var collectionCount = GC.CollectionCount(index);
+            int collectionCount = GC.CollectionCount(index);
             if (collectionCount <= _trackers[index])
                 continue;
 

@@ -1,7 +1,5 @@
 ﻿using LVK.Core.Bootstrapping;
 
-using Sandbox.WebApp.Blazor.Components;
-
 using App = Sandbox.WebApp.Blazor.Components.App;
 
 namespace Sandbox.WebApp.Blazor;
@@ -19,7 +17,7 @@ public class ApplicationBootstrapper : IApplicationBootstrapper<WebApplicationBu
         // Configure the HTTP request pipeline.
         if (!host.Environment.IsDevelopment())
         {
-            host.UseExceptionHandler("/Error", createScopeForErrors: true);
+            host.UseExceptionHandler("/Error", true);
 
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             host.UseHsts();

@@ -11,7 +11,9 @@ public class GenericBootstrapperWithInitializer : IApplicationBootstrapper<TestA
         _initializer = initializer;
     }
 
-    public void Bootstrap(IHostBootstrapper<TestApplicationBuilder, TestHost> bootstrapper, TestApplicationBuilder builder) { }
+    public void Bootstrap(IHostBootstrapper<TestApplicationBuilder, TestHost> bootstrapper, TestApplicationBuilder builder)
+    {
+    }
 
     public void Initialize(TestHost host)
     {

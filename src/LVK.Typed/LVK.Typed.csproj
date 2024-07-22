@@ -34,21 +34,21 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
-        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="TypeHelper.cs">
-        <DependentUpon>ITypeHelper.cs</DependentUpon>
-      </Compile>
-      <Compile Update="TypeHelperExtensions.cs">
-        <DependentUpon>ITypeHelper.cs</DependentUpon>
-      </Compile>
+        <Compile Update="TypeHelper.cs">
+            <DependentUpon>ITypeHelper.cs</DependentUpon>
+        </Compile>
+        <Compile Update="TypeHelperExtensions.cs">
+            <DependentUpon>ITypeHelper.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

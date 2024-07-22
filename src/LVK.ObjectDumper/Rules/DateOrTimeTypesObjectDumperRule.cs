@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace LVK.ObjectDumper.Rules;
 
 public class DateOrTimeTypesObjectDumperRule : IObjectDumperRule
@@ -19,7 +17,7 @@ public class DateOrTimeTypesObjectDumperRule : IObjectDumperRule
             DateOnly d         => d.ToString("G", context.Options.FormattingCulture),
             TimeOnly t         => t.ToString("G", context.Options.FormattingCulture),
             TimeSpan ts        => ts.ToString("G", context.Options.FormattingCulture),
-            _                  => throw new ArgumentOutOfRangeException(nameof(value), value, null)
+            _                  => throw new ArgumentOutOfRangeException(nameof(value), value, null),
         };
 
         context.Writer.WriteFormatted(name, value, formatted, out _);

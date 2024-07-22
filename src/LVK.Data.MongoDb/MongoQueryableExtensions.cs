@@ -16,8 +16,7 @@ public static class MongoQueryableExtensions
         return result;
     }
 
-    public static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(
-        this IMongoQueryable<T> collection, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(this IMongoQueryable<T> collection, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using IAsyncCursor<T>? cursor = await collection.ToCursorAsync(cancellationToken);
 

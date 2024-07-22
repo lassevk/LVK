@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace LVK.ObjectDumper.Rules;
 
 public class EnumObjectDumperRule : IObjectDumperRule
@@ -14,7 +12,7 @@ public class EnumObjectDumperRule : IObjectDumperRule
         string formatted = Enum.Format(enumType, value, "G");
         Type underlyingType = Enum.GetUnderlyingType(enumType);
 
-        var formattable = ((IFormattable)Convert.ChangeType(value, underlyingType));
+        var formattable = (IFormattable)Convert.ChangeType(value, underlyingType);
         var numericValueFormatted = $"{formattable:G} = 0x{formattable:X} = 0b{formattable:B}";
         context.Writer.WriteFormatted(name, value, $"{formatted} ({numericValueFormatted})", out _);
     }

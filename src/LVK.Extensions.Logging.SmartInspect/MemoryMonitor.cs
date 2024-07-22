@@ -6,11 +6,10 @@ namespace LVK.Extensions.Logging.SmartInspect;
 
 internal class MemoryMonitor
 {
-    private readonly Session _session;
-    private readonly CancellationToken _cancellationToken;
-
     private readonly CircularQueue<long> _allocatedBytes = new();
+    private readonly CancellationToken _cancellationToken;
     private readonly CircularQueue<long> _privateMemory = new();
+    private readonly Session _session;
     private readonly CircularQueue<long> _virtualMemory = new();
 
     public MemoryMonitor(Session session, CancellationToken cancellationToken)
@@ -47,7 +46,7 @@ internal class MemoryMonitor
 
     private void Test()
     {
-        for (int index = 0; index < Random.Shared.Next(32000); index++)
+        for (var index = 0; index < Random.Shared.Next(32000); index++)
             GC.KeepAlive(new byte[Random.Shared.Next(65536)]);
     }
 }

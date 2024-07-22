@@ -7,8 +7,6 @@ public class DataProtection : IDataProtection
 {
     private readonly List<IDataProtectionPasswordProvider> _dataProtectionPasswordProviders;
 
-    public static IDataProtection CreateDefault() => new DataProtection([new EnvironmentVariableDataProtectionPasswordProvider()]);
-
     public DataProtection(IEnumerable<IDataProtectionPasswordProvider> dataProtectionPasswordProviders)
     {
         if (dataProtectionPasswordProviders == null)
@@ -35,8 +33,8 @@ public class DataProtection : IDataProtection
         return DataEncryption.Unprotect(protectedData, password);
     }
 
+    public static IDataProtection CreateDefault() => new DataProtection([new EnvironmentVariableDataProtectionPasswordProvider()]);
+
     private string? TryGetPassword(string passwordName)
-        => _dataProtectionPasswordProviders
-           .Select(provider => provider.TryGetPassword(passwordName))
-           .FirstOrDefault(password => !string.IsNullOrWhiteSpace(password));
+        => _dataProtectionPasswordProviders.Select(provider => provider.TryGetPassword(passwordName)).FirstOrDefault(password => !string.IsNullOrWhiteSpace(password));
 }

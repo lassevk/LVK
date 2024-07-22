@@ -1,7 +1,4 @@
-﻿
-using LVK.Typed.Rules;
-
-namespace LVK.Typed.Tests;
+﻿namespace LVK.Typed.Tests;
 
 [TestFixture]
 public class TypeHelperTests

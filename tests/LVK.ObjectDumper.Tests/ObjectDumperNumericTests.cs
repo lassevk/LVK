@@ -1,7 +1,3 @@
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-
-using NUnit.Framework.Internal;
-
 namespace LVK.ObjectDumper.Tests;
 
 public class ObjectDumperNumericTests
@@ -16,7 +12,7 @@ public class ObjectDumperNumericTests
     [TestCase("Value", (sbyte)16, "Value = 16 [System.SByte]")]
     [TestCase("Value", (byte)17, "Value = 17 [System.Byte]")]
     [TestCase("Value", (float)19.456, "Value = 19.456 [System.Single]")]
-    [TestCase("Value", (double)20.789, "Value = 20.789 [System.Double]")]
+    [TestCase("Value", 20.789, "Value = 20.789 [System.Double]")]
     public void Dump_WithTestCases(string name, object value, string expected)
     {
         string output = ObjectDumper.Instance.Dump(name, value);

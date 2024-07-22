@@ -12,14 +12,8 @@ internal class SettingsStore : ISettingsStore
 {
     private readonly ITypeHelper _typeHelper;
 
-    private Lazy<SearchValues<char>> _invalidNameChars = new(GetInvalidNameChars);
-    private AutoWeakCache<Type, string> _nameCache;
-
-    private static SearchValues<char> GetInvalidNameChars()
-    {
-        var invalidChars = string.Join("", Path.GetInvalidPathChars().Concat(Path.GetInvalidFileNameChars()));
-        return SearchValues.Create(invalidChars);
-    }
+    private readonly Lazy<SearchValues<char>> _invalidNameChars = new(GetInvalidNameChars);
+    private readonly AutoWeakCache<Type, string> _nameCache;
 
     public SettingsStore(ITypeHelper typeHelper)
     {
@@ -59,6 +53,12 @@ internal class SettingsStore : ISettingsStore
     public Task SaveAsync<T>(T settings, CancellationToken cancellationToken = default)
         where T : class, new()
         => SaveAsync(_nameCache.GetValue(typeof(T))!, settings, cancellationToken);
+
+    private static SearchValues<char> GetInvalidNameChars()
+    {
+        var invalidChars = string.Join("", Path.GetInvalidPathChars().Concat(Path.GetInvalidFileNameChars()));
+        return SearchValues.Create(invalidChars);
+    }
 
     private string CalculateName(Type type)
     {

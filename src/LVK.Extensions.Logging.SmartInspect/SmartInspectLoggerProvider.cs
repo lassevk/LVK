@@ -13,9 +13,9 @@ namespace LVK.Extensions.Logging.SmartInspect;
 [ProviderAlias("SmartInspect")]
 internal class SmartInspectLoggerProvider : ILoggerProvider
 {
+    private readonly ConcurrentDictionary<string, SmartInspectLogger> _loggers = new(StringComparer.OrdinalIgnoreCase);
+
     private readonly IDisposable? _onChangeSubscription;
-    private readonly ConcurrentDictionary<string, SmartInspectLogger> _loggers =
-        new(StringComparer.OrdinalIgnoreCase);
 
     private SmartInspectLoggerConfiguration _configuration;
 
@@ -29,6 +29,17 @@ internal class SmartInspectLoggerProvider : ILoggerProvider
         });
 
         ConfigureSmartInspect();
+    }
+
+    public void Dispose()
+    {
+        _loggers.Clear();
+        _onChangeSubscription?.Dispose();
+    }
+
+    public ILogger CreateLogger(string categoryName)
+    {
+        return _loggers.GetOrAdd(categoryName, name => new SmartInspectLogger(name, _configuration));
     }
 
     private void ConfigureSmartInspect()
@@ -48,16 +59,5 @@ internal class SmartInspectLoggerProvider : ILoggerProvider
             return "Process";
 
         return process.ProcessName;
-    }
-
-    public void Dispose()
-    {
-        _loggers.Clear();
-        _onChangeSubscription?.Dispose();
-    }
-
-    public ILogger CreateLogger(string categoryName)
-    {
-        return _loggers.GetOrAdd(categoryName, name => new SmartInspectLogger(name, _configuration));
     }
 }

@@ -2,7 +2,7 @@ namespace LVK.ObjectDumper.Rules;
 
 public class PointerObjectDumperRule : IObjectDumperRule
 {
-    public Type[] GetKnownSupportedTypes()  => [];
+    public Type[] GetKnownSupportedTypes() => [];
 
     public bool SupportsType(Type type) => type.IsPointer || type.IsFunctionPointer || type.IsUnmanagedFunctionPointer;
 

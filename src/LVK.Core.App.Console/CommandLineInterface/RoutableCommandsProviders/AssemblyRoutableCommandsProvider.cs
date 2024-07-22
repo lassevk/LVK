@@ -13,6 +13,8 @@ internal class AssemblyRoutableCommandsProvider : IRoutableCommandsProvider
         _commands = commands ?? throw new ArgumentNullException(nameof(commands));
     }
 
+    public Task<List<IRoutableCommand>> GetCommandsAsync(CancellationToken cancellationToken) => Task.FromResult(_commands);
+
     public static IRoutableCommandsProvider Register(IServiceCollection services, Assembly assembly)
     {
         Guard.NotNull(services);
@@ -35,6 +37,4 @@ internal class AssemblyRoutableCommandsProvider : IRoutableCommandsProvider
 
         return new AssemblyRoutableCommandsProvider(commands);
     }
-
-    public Task<List<IRoutableCommand>> GetCommandsAsync(CancellationToken cancellationToken) => Task.FromResult(_commands);
 }

@@ -9,8 +9,8 @@ public class ModuleBootstrapper : IModuleBootstrapper
 {
     public void Bootstrap(IHostBootstrapper bootstrapper, IHostApplicationBuilder builder)
     {
-        bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
-        bootstrapper.Bootstrap(new LVK.Typed.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new Core.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new Typed.ModuleBootstrapper());
 
         builder.Services.AddSingleton<ISettingsStore, SettingsStore>();
     }

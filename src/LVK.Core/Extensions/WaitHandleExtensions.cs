@@ -9,15 +9,14 @@ public static class WaitHandleExtensions
         ArgumentNullException.ThrowIfNull(handle);
 
         var tcs = new TaskCompletionSource<object>();
-        RegisteredWaitHandle registration = ThreadPool.RegisterWaitForSingleObject(
-            handle, (state, timedOut) =>
-            {
-                var localTcs = (TaskCompletionSource<object>)state!;
-                if (timedOut)
-                    localTcs.TrySetCanceled();
-                else
-                    localTcs.TrySetResult(default!);
-            }, tcs, timeout, executeOnlyOnce: true);
+        RegisteredWaitHandle registration = ThreadPool.RegisterWaitForSingleObject(handle, (state, timedOut) =>
+        {
+            var localTcs = (TaskCompletionSource<object>)state!;
+            if (timedOut)
+                localTcs.TrySetCanceled();
+            else
+                localTcs.TrySetResult(default!);
+        }, tcs, timeout, true);
 
         tcs.Task.ContinueWith((_, state) => (state as RegisteredWaitHandle)!.Unregister(null), registration, TaskScheduler.Default);
         return tcs.Task;

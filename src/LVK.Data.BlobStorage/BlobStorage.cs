@@ -14,6 +14,8 @@ internal partial class BlobStorage : IBlobStorage
     private const string _objectFolderName = "objects";
     private const string _tagFolderName = "tags";
 
+    private readonly char[] _digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+
     private readonly string _folderPath;
 
     public BlobStorage(string folderPath)
@@ -31,61 +33,6 @@ internal partial class BlobStorage : IBlobStorage
 
         string json = JsonSerializer.Serialize(instance);
         return await SaveStringAsync(json, cancellationToken);
-    }
-
-    private async Task<string> SaveStringAsync(string value, CancellationToken cancellationToken)
-    {
-        byte[] bytes = Encoding.UTF8.GetBytes(value);
-        return await SaveBytesAsync(bytes, cancellationToken);
-    }
-
-    private async Task<string> SaveBytesAsync(byte[] bytes, CancellationToken cancellationToken)
-    {
-        string checksum = GetChecksum(bytes);
-
-        string filePath = ChecksumToFilePath(checksum);
-        if (File.Exists(filePath))
-            return checksum;
-
-        await using var fileStream = new FileStream(filePath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
-        await using var compressionStream = new ZLibStream(fileStream, CompressionLevel.Optimal);
-        await compressionStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
-        return checksum;
-    }
-
-    private string ChecksumToFilePath(string checksum)
-    {
-        string folderPath = Path.Combine(_folderPath, _objectFolderName, checksum[0..2]);
-        Directory.CreateDirectory(folderPath);
-
-        string filePath = Path.Combine(folderPath, checksum[2..]);
-        return filePath;
-    }
-
-    private string TagToFilePath(string name)
-    {
-        string[] parts = name.Split('/');
-        string folderPath = Path.Combine([_folderPath, _tagFolderName, .. parts[..^1]]);
-        Directory.CreateDirectory(folderPath);
-
-        string filePath = Path.Combine(folderPath, parts.Last());
-        return filePath;
-    }
-
-    private readonly char[] _digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-    private string GetChecksum(byte[] bytes)
-    {
-        using var sha = SHA256.Create();
-        byte[] checksum = sha.ComputeHash(bytes);
-        Span<char> result = new char[64];
-        for (int checksumIndex = 0, resultIndex = 0; checksumIndex < 32; checksumIndex++, resultIndex += 2)
-        {
-            byte b = checksum[checksumIndex];
-            result[resultIndex] = _digits[b >> 16];
-            result[resultIndex + 1] = _digits[b & 0x0f];
-        }
-
-        return new string(result);
     }
 
     public async Task<T?> TryLoadAsync<T>(string reference, CancellationToken cancellationToken)
@@ -137,6 +84,63 @@ internal partial class BlobStorage : IBlobStorage
 
         await foreach (string tagName in EnumerateTagFolderAsync(Path.Combine(_folderPath, _tagFolderName).Length + 1, tagFolderPath, recursive, cancellationToken))
             yield return tagName;
+    }
+
+    private async Task<string> SaveStringAsync(string value, CancellationToken cancellationToken)
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(value);
+        return await SaveBytesAsync(bytes, cancellationToken);
+    }
+
+    private async Task<string> SaveBytesAsync(byte[] bytes, CancellationToken cancellationToken)
+    {
+        string checksum = GetChecksum(bytes);
+
+        string filePath = ChecksumToFilePath(checksum);
+        if (File.Exists(filePath))
+            return checksum;
+
+        await using var fileStream = new FileStream(filePath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
+        await using var compressionStream = new ZLibStream(fileStream, CompressionLevel.Optimal);
+        await compressionStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
+        return checksum;
+    }
+
+    private string ChecksumToFilePath(string checksum)
+    {
+        string folderPath = Path.Combine(_folderPath, _objectFolderName, checksum[..2]);
+        Directory.CreateDirectory(folderPath);
+
+        string filePath = Path.Combine(folderPath, checksum[2..]);
+        return filePath;
+    }
+
+    private string TagToFilePath(string name)
+    {
+        string[] parts = name.Split('/');
+        string folderPath = Path.Combine([_folderPath, _tagFolderName, .. parts[..^1]]);
+        Directory.CreateDirectory(folderPath);
+
+        string filePath = Path.Combine(folderPath, parts.Last());
+        return filePath;
+    }
+
+    private string GetChecksum(byte[] bytes)
+    {
+        using var sha = SHA256.Create();
+        byte[] checksum = sha.ComputeHash(bytes);
+        Span<char> result = new char[64];
+        for (int checksumIndex = 0,
+            resultIndex = 0;
+            checksumIndex < 32;
+            checksumIndex++, resultIndex += 2)
+        {
+            byte b = checksum[checksumIndex];
+            result[resultIndex] = _digits[b >> 16];
+            result[resultIndex + 1] = _digits[b & 0x0f];
+        }
+
+        return new string(result);
     }
 
     private async IAsyncEnumerable<string> EnumerateTagFolderAsync(int prefixLength, string folderPath, bool recursive, [EnumeratorCancellation] CancellationToken cancellationToken)

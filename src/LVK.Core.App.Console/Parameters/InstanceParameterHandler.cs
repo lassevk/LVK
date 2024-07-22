@@ -102,6 +102,7 @@ internal static class InstanceParameterHandler
         {
             yield return "";
             yield return "options:";
+
             foreach (RoutableCommandOption option in options)
             {
                 foreach (string line in option.GetHelpText())
@@ -178,8 +179,7 @@ internal static class InstanceParameterHandler
         }
     }
 
-    private static PropertyInfo? GetPositionalArgumentsProperty(Type type) => type
-       .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-       .Where(property => property.PropertyType == typeof(List<string>))
-       .FirstOrDefault(property => property.GetCustomAttribute<PositionalArgumentsAttribute>() != null);
+    private static PropertyInfo? GetPositionalArgumentsProperty(Type type)
+        => type.GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(property => property.PropertyType == typeof(List<string>))
+           .FirstOrDefault(property => property.GetCustomAttribute<PositionalArgumentsAttribute>() != null);
 }

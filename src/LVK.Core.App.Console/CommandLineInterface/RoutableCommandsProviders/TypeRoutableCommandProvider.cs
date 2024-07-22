@@ -11,6 +11,8 @@ internal class TypeRoutableCommandProvider : IRoutableCommandsProvider
         _command = command ?? throw new ArgumentNullException(nameof(command));
     }
 
+    public Task<List<IRoutableCommand>> GetCommandsAsync(CancellationToken cancellationToken) => Task.FromResult<List<IRoutableCommand>>([_command]);
+
     public static IRoutableCommandsProvider Register(IServiceCollection services, Type commandType)
     {
         Guard.NotNull(services);
@@ -21,6 +23,4 @@ internal class TypeRoutableCommandProvider : IRoutableCommandsProvider
         services.AddTransient(commandType);
         return new TypeRoutableCommandProvider(new TypeRoutableCommand(commandType));
     }
-
-    public Task<List<IRoutableCommand>> GetCommandsAsync(CancellationToken cancellationToken) => Task.FromResult<List<IRoutableCommand>>([_command]);
 }

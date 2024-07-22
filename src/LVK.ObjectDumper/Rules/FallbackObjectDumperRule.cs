@@ -13,10 +13,12 @@ internal class FallbackObjectDumperRule : IObjectDumperRule
         string formatted = value.ToString()?.Replace("\t", "\\t").Replace("\n", "\\n").Replace("\r", "\\r") ?? "";
         if (formatted == value.GetType().FullName)
             formatted = "";
+
         if (formatted.Length > 80)
         {
-            formatted = formatted[0..80] + "...";
+            formatted = formatted[..80] + "...";
         }
+
         context.Writer.WriteFormatted(name, value, formatted, out bool isFirstTime);
         if (!isFirstTime)
             return;
@@ -33,6 +35,7 @@ internal class FallbackObjectDumperRule : IObjectDumperRule
         context.DumpProperties(value, recursiveDump);
         if (context.Options.IncludeFields)
             context.DumpFields(value, recursiveDump);
+
         context.Writer.EndBlock();
     }
 }

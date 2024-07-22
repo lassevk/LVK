@@ -10,6 +10,7 @@ public static class ObjectDumperExtensions
     {
         if (string.IsNullOrWhiteSpace(name))
             name = "<unnamed>";
+
         dumper.Dump(name, value, target, options);
     }
 
@@ -27,6 +28,7 @@ public static class ObjectDumperExtensions
         => Dump(dumper, name ?? "", value, options);
 
     public static void Dump(this IObjectDumper dumper, string name, object value, ILogger logger, ObjectDumperOptions? options = null) => Dump(dumper, LogLevel.Debug, name, value, logger, options);
+
     public static void Dump(this IObjectDumper dumper, LogLevel logLevel, string name, object value, ILogger logger, ObjectDumperOptions? options = null)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -38,7 +40,9 @@ public static class ObjectDumperExtensions
 
     public static void Dump(this IObjectDumper dumper, object value, ILogger logger, ObjectDumperOptions? options = null, [CallerArgumentExpression(nameof(value))] string? name = null)
         => Dump(dumper, LogLevel.Debug, value, logger, options, name);
-    public static void Dump(this IObjectDumper dumper, LogLevel logLevel, object value, ILogger logger, ObjectDumperOptions? options = null, [CallerArgumentExpression(nameof(value))] string? name = null)
+
+    public static void Dump(
+        this IObjectDumper dumper, LogLevel logLevel, object value, ILogger logger, ObjectDumperOptions? options = null, [CallerArgumentExpression(nameof(value))] string? name = null)
     {
         if (string.IsNullOrWhiteSpace(name))
             name = "<unnamed>";

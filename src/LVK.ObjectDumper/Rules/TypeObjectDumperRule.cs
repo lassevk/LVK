@@ -2,7 +2,7 @@ namespace LVK.ObjectDumper.Rules;
 
 public class TypeObjectDumperRule : IObjectDumperRule
 {
-    public Type[] GetKnownSupportedTypes()  => [];
+    public Type[] GetKnownSupportedTypes() => [];
 
     public bool SupportsType(Type type) => type.FullName == "System.RuntimeType";
 
@@ -13,8 +13,7 @@ public class TypeObjectDumperRule : IObjectDumperRule
         var t = (Type)value;
         context.DumpProxy(name, value, $"Type: {context.Writer.FormatType(t)}", new
         {
-            t.Namespace,
-            t.Assembly,
+            t.Namespace, t.Assembly,
         }, recursiveDump);
     }
 }

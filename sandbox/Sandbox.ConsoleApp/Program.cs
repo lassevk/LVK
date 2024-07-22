@@ -1,5 +1,5 @@
-﻿using LVK.Core.Bootstrapping;
-using LVK.Core.App.Console;
+﻿using LVK.Core.App.Console;
+using LVK.Core.Bootstrapping;
 
 using Sandbox.ConsoleApp;
 

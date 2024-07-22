@@ -6,6 +6,11 @@ namespace LVK.Core.App.Console.CommandLineInterface.Commands;
 [Description("Shows version information for the application")]
 internal class VersionCommand : ICommand
 {
+    [CommandLineOption("dependencies")]
+    [CommandLineOption("d")]
+    [Description("Also include all dependencies")]
+    public bool AllDependencies { get; set; }
+
     public Task<int> RunAsync(CancellationToken cancellationToken)
     {
         var assembly = Assembly.GetEntryAssembly();
@@ -54,9 +59,4 @@ internal class VersionCommand : ICommand
 
         return false;
     }
-
-    [CommandLineOption("dependencies")]
-    [CommandLineOption("d")]
-    [Description("Also include all dependencies")]
-    public bool AllDependencies { get; set; }
 }

@@ -61,6 +61,7 @@ public class GuardTests
         if (expected)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.InRange(value, lowestValue, highestValue));
+
             // Assert.Throws<ArgumentNullException>(() => Guard.GreaterThan(value, lowestValue - 1));
             // Assert.Throws<ArgumentNullException>(() => Guard.GreaterThanOrEqual(value, lowestValue));
             // Assert.Throws<ArgumentNullException>(() => Guard.LessThan(value, highestValue + 1));
@@ -69,6 +70,7 @@ public class GuardTests
         else
         {
             Guard.InRange(value, lowestValue, highestValue);
+
             // Guard.GreaterThan(value, lowestValue - 1);
             // Guard.GreaterThanOrEqual(value, lowestValue);
             // Guard.LessThan(value, highestValue + 1);

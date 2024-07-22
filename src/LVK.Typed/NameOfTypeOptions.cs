@@ -10,5 +10,5 @@ public enum NameOfTypeOptions
     IncludeNamespaces = 4,
     SpaceAfterCommas = 8,
 
-    Default = UseCSharpKeywords | UseShorthandSyntax | IncludeNamespaces | SpaceAfterCommas
+    Default = UseCSharpKeywords | UseShorthandSyntax | IncludeNamespaces | SpaceAfterCommas,
 }

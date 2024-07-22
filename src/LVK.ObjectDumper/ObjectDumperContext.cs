@@ -1,15 +1,14 @@
 using System.Reflection;
 
 using LVK.ObjectDumper.Rules;
-using LVK.Typed;
 
 namespace LVK.ObjectDumper;
 
 internal class ObjectDumperContext : IObjectDumperContext
 {
+    private readonly IObjectDumperRule _fallbackRule = new FallbackObjectDumperRule();
     private readonly List<IObjectDumperRule> _rules;
     private readonly Dictionary<Type, IObjectDumperRule> _typeToRule = new();
-    private readonly IObjectDumperRule _fallbackRule = new FallbackObjectDumperRule();
 
     private int _recursionLevel;
 
@@ -34,7 +33,6 @@ internal class ObjectDumperContext : IObjectDumperContext
         _recursionLevel++;
         try
         {
-
             if (value == null)
             {
                 Writer.WriteLine($"{name} = <null>");
@@ -43,7 +41,6 @@ internal class ObjectDumperContext : IObjectDumperContext
 
             IObjectDumperRule rule = GetRuleForType(value.GetType());
             rule.Dump(this, name, value, recursiveDump && _recursionLevel < Options.MaxRecursionLevel);
-
         }
         finally
         {
@@ -72,9 +69,7 @@ internal class ObjectDumperContext : IObjectDumperContext
 
     public void DumpProperties(object value, bool recursiveDump)
     {
-        BindingFlags bindingFlags = Options.IncludePrivateMembers
-            ? BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-            : BindingFlags.Instance | BindingFlags.Public;
+        BindingFlags bindingFlags = Options.IncludePrivateMembers ? BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic : BindingFlags.Instance | BindingFlags.Public;
 
         PropertyInfo[] properties = value.GetType().GetProperties(bindingFlags);
         if (!properties.Any())
@@ -108,9 +103,7 @@ internal class ObjectDumperContext : IObjectDumperContext
 
     public void DumpFields(object value, bool recursiveDump)
     {
-        BindingFlags bindingFlags = Options.IncludePrivateMembers
-            ? BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-            : BindingFlags.Instance | BindingFlags.Public;
+        BindingFlags bindingFlags = Options.IncludePrivateMembers ? BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic : BindingFlags.Instance | BindingFlags.Public;
 
         FieldInfo[] fields = value.GetType().GetFields(bindingFlags);
         if (!fields.Any())

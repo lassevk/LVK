@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using MySqlConnector;
-
 namespace LVK.Data.EntityFramework.MySql;
 
 public static class Extensions

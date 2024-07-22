@@ -2,9 +2,9 @@
 
 public record Error
 {
+    public static readonly Error None = new();
+
     protected Error()
     {
     }
-
-    public static readonly Error None = new();
 }

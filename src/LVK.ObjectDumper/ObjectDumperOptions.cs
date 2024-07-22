@@ -6,13 +6,13 @@ namespace LVK.ObjectDumper;
 
 public class ObjectDumperOptions
 {
-    private int _indentationSize = 4;
-    private int _maxIndentationLevel = 256;
-    private int _maxRecursionLevel = 32;
     private CultureInfo _formattingCulture = CultureInfo.InvariantCulture;
-    private int _maxStringDumpLength = 32_768;
+    private int _indentationSize = 4;
     private int _maxByteArrayDumpLength = 32_768;
     private int _maxCollectionDumpLength = 10_000;
+    private int _maxIndentationLevel = 256;
+    private int _maxRecursionLevel = 32;
+    private int _maxStringDumpLength = 32_768;
 
     public int IndentationSize
     {

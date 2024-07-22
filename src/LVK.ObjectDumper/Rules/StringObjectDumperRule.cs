@@ -33,6 +33,7 @@ public class StringObjectDumperRule : IObjectDumperRule
         {
             context.Writer.WriteLine(line);
         }
+
         context.Writer.EndBlock();
     }
 }

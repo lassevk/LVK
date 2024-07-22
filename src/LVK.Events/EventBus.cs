@@ -8,8 +8,8 @@ namespace LVK.Events;
 
 internal class EventBus : IEventBus
 {
-    private readonly IServiceProvider _serviceProvider;
     private readonly object _globalGroup = new();
+    private readonly IServiceProvider _serviceProvider;
     private readonly ConcurrentDictionary<Type, ConcurrentDictionary<object, HashSet<object>>> _subscribers = new();
 
     public EventBus(IServiceProvider serviceProvider)
@@ -48,8 +48,8 @@ internal class EventBus : IEventBus
         Type messageType = typeof(T);
         group ??= _globalGroup;
 
-        ConcurrentDictionary<object, HashSet<object>> typeSubscribers = _subscribers.GetOrAdd(messageType, _ => new());
-        HashSet<object> groupSubscribers = typeSubscribers.GetOrAdd(group, _ => new());
+        ConcurrentDictionary<object, HashSet<object>> typeSubscribers = _subscribers.GetOrAdd(messageType, _ => new ConcurrentDictionary<object, HashSet<object>>());
+        HashSet<object> groupSubscribers = typeSubscribers.GetOrAdd(group, _ => new HashSet<object>());
 
         lock (groupSubscribers)
         {
@@ -76,9 +76,7 @@ internal class EventBus : IEventBus
 
     private async Task PublishToServicesAsync<T>(object? group, T message, CancellationToken cancellationToken)
     {
-        List<IEventSubscriber<T>> subscribers = group != null
-            ? _serviceProvider.GetKeyedServices<IEventSubscriber<T>>(group).ToList()
-            : _serviceProvider.GetServices<IEventSubscriber<T>>().ToList();
+        List<IEventSubscriber<T>> subscribers = group != null ? _serviceProvider.GetKeyedServices<IEventSubscriber<T>>(group).ToList() : _serviceProvider.GetServices<IEventSubscriber<T>>().ToList();
 
         if (subscribers.Count == 0)
             return;

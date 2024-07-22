@@ -3,7 +3,7 @@
 public static class EnumerableExtensions
 {
     public static T[] ToOrderedArray<T>(this IEnumerable<T> collection, IComparer<T>? comparer = null)
-        where T: IComparable<T>
+        where T : IComparable<T>
     {
         ArgumentNullException.ThrowIfNull(collection);
 
@@ -13,7 +13,7 @@ public static class EnumerableExtensions
     }
 
     public static List<T> ToOrderedList<T>(this IEnumerable<T> collection, IComparer<T>? comparer = null)
-        where T: IComparable<T>
+        where T : IComparable<T>
     {
         var result = collection.ToList();
         result.Sort(comparer);
@@ -21,7 +21,7 @@ public static class EnumerableExtensions
     }
 
     public static List<T> ToOrderedList<T>(this IEnumerable<T> collection, Comparison<T> comparison)
-        where T: IComparable<T>
+        where T : IComparable<T>
     {
         var result = collection.ToList();
         result.Sort(comparison);

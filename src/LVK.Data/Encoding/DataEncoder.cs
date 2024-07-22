@@ -26,7 +26,7 @@ public static class DataEncoder
         var shift = 0;
         while (true)
         {
-            var next = source.ReadByte();
+            int next = source.ReadByte();
             if (next < 0)
                 return value;
 

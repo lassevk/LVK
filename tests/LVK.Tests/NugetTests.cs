@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace LVK.Tests;
 
 public abstract class NugetTests<T>
-    where T: NugetTests<T>
+    where T : NugetTests<T>
 {
     private static readonly Lazy<string?> _projectFilePath;
     private static readonly Lazy<Dictionary<string, string>> _properties;
@@ -21,10 +21,10 @@ public abstract class NugetTests<T>
     {
         string? filePath = _projectFilePath.Value;
         if (filePath == null)
-            return new();
+            return new List<string>();
 
         if (!File.Exists(filePath))
-            return new();
+            return new List<string>();
 
         var result = new List<string>();
 
@@ -94,7 +94,7 @@ public abstract class NugetTests<T>
         yield return prop("Nullable", "enable");
         yield return prop("Title", Path.GetFileNameWithoutExtension(_projectFilePath.Value)!);
         yield return prop("Authors", "Lasse V\u00e5gs\u00e6ther Karlsen");
-        yield return prop("Copyright", $"Lasse V\u00e5gs\u00e6ther Karlsen $([System.DateTime]::Today.ToString('yyyy')), All rights reserved");
+        yield return prop("Copyright", "Lasse Vågsæther Karlsen $([System.DateTime]::Today.ToString('yyyy')), All rights reserved");
         yield return prop("PackageReadmeFile", "README.md");
         yield return prop("PackageLicenseFile", "LICENSE.md");
         yield return prop("PublishRepositoryUrl", "true");
@@ -153,7 +153,7 @@ public abstract class NugetTests<T>
         List<string> expected = lines[1..^1];
         Outdent(expected);
 
-        for (int sectionStart = 0; sectionStart < _projectFile.Value.Count; sectionStart++)
+        for (var sectionStart = 0; sectionStart < _projectFile.Value.Count; sectionStart++)
         {
             if (!Regex.IsMatch(_projectFile.Value[sectionStart], lines[0]))
                 continue;

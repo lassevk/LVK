@@ -2,24 +2,25 @@
 
 internal class CSharpKeywordTypeNameRule : ITypeNameRule
 {
-    private readonly Dictionary<Type, string> _cSharpKeywordTypeNames = new Dictionary<Type, string>
+    private readonly Dictionary<Type, string> _cSharpKeywordTypeNames = new()
     {
-        [typeof(sbyte)]  = "sbyte",
-        [typeof(byte)]   = "byte",
-        [typeof(short)]  = "short",
+        [typeof(sbyte)] = "sbyte",
+        [typeof(byte)] = "byte",
+        [typeof(short)] = "short",
         [typeof(ushort)] = "ushort",
-        [typeof(int)]    = "int",
-        [typeof(uint)]   = "uint",
-        [typeof(long)]   = "long",
-        [typeof(ulong)]  = "ulong",
-        [typeof(char)]   = "char",
+        [typeof(int)] = "int",
+        [typeof(uint)] = "uint",
+        [typeof(long)] = "long",
+        [typeof(ulong)] = "ulong",
+        [typeof(char)] = "char",
         [typeof(string)] = "string",
         [typeof(double)] = "double",
-        [typeof(float)]  = "float",
-        [typeof(bool)]   = "bool",
+        [typeof(float)] = "float",
+        [typeof(bool)] = "bool",
         [typeof(object)] = "object",
-        [typeof(nint)]   = "nint",
-        [typeof(nuint)]  = "nuint", };
+        [typeof(nint)] = "nint",
+        [typeof(nuint)] = "nuint",
+    };
 
     public int Priority => 1;
 

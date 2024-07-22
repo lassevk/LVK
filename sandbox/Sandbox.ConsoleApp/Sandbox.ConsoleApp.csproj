@@ -9,36 +9,36 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\LVK.Core.App.Console\LVK.Core.App.Console.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Data.BlobStorage\LVK.Data.BlobStorage.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Data.EntityFramework.Postgres\LVK.Data.EntityFramework.Postgres.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Data.EntityFramework.Sqlite\LVK.Data.EntityFramework.Sqlite.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Data.MongoDb\LVK.Data.MongoDb.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Data\LVK.Data.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Events\LVK.Events.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Extensions.Logging.SmartInspect\LVK.Extensions.Logging.SmartInspect.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Networking\LVK.Networking.csproj" />
-      <ProjectReference Include="..\..\src\LVK.NodaTime\LVK.NodaTime.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Notifications.Pushover\LVK.Notifications.Pushover.csproj" />
-      <ProjectReference Include="..\..\src\LVK.ObjectDumper\LVK.ObjectDumper.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Security.OnePassword\LVK.Security.OnePassword.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Typed\LVK.Typed.csproj" />
-      <ProjectReference Include="..\..\tests\LVK.Data.EntityFramework.MySql.Tests\LVK.Data.EntityFramework.MySql.Tests.csproj" />
+        <ProjectReference Include="..\..\src\LVK.Core.App.Console\LVK.Core.App.Console.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Data.BlobStorage\LVK.Data.BlobStorage.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Data.EntityFramework.Postgres\LVK.Data.EntityFramework.Postgres.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Data.EntityFramework.Sqlite\LVK.Data.EntityFramework.Sqlite.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Data.MongoDb\LVK.Data.MongoDb.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Data\LVK.Data.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Events\LVK.Events.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Extensions.Logging.SmartInspect\LVK.Extensions.Logging.SmartInspect.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Networking\LVK.Networking.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.NodaTime\LVK.NodaTime.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Notifications.Pushover\LVK.Notifications.Pushover.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.ObjectDumper\LVK.ObjectDumper.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Security.OnePassword\LVK.Security.OnePassword.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Typed\LVK.Typed.csproj"/>
+        <ProjectReference Include="..\..\tests\LVK.Data.EntityFramework.MySql.Tests\LVK.Data.EntityFramework.MySql.Tests.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

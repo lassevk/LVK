@@ -21,14 +21,14 @@
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\LVK.Data.MongoDb\LVK.Data.MongoDb.csproj" />
-      <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
+        <ProjectReference Include="..\LVK.Data.MongoDb\LVK.Data.MongoDb.csproj"/>
+        <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MongoDb.Bson.NodaTime" Version="3.0.0" />
+        <PackageReference Include="MongoDb.Bson.NodaTime" Version="3.0.0"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -40,7 +40,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
-        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"/>
     </ItemGroup>
 </Project>

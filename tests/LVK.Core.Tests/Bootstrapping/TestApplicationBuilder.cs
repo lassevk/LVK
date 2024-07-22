@@ -9,7 +9,9 @@ namespace LVK.Core.Tests.Bootstrapping;
 public class TestApplicationBuilder : IHostApplicationBuilder
 {
     public void ConfigureContainer<TContainerBuilder>(IServiceProviderFactory<TContainerBuilder> factory, Action<TContainerBuilder>? configure = null)
-        where TContainerBuilder : notnull { }
+        where TContainerBuilder : notnull
+    {
+    }
 
     public IDictionary<object, object> Properties { get; } = null!;
     public IConfigurationManager Configuration { get; } = null!;

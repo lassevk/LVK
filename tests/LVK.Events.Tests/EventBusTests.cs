@@ -54,7 +54,7 @@ public class EventBusTests
 
         await eventBus.PublishAsync<string>(10, "TEST");
         Assert.That(received, Is.EqualTo("TEST"));
-   }
+    }
 
     [Test]
     public async Task PublishEvent_SubscriberInOneGroupMessageGoesToAnother_SubscriberIsNotInvoked()

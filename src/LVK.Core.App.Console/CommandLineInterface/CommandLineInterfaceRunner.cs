@@ -10,10 +10,10 @@ namespace LVK.Core.App.Console.CommandLineInterface;
 internal class CommandLineInterfaceRunner : IHostedService
 {
     private readonly IHostApplicationLifetime _hostApplicationLifetime;
-    private readonly ILogger<CommandLineInterfaceRunner> _logger;
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IEnumerable<IRoutableCommandsProvider> _routableCommandsProviders;
     private readonly IHostEnvironment _hostEnvironment;
+    private readonly ILogger<CommandLineInterfaceRunner> _logger;
+    private readonly IEnumerable<IRoutableCommandsProvider> _routableCommandsProviders;
+    private readonly IServiceProvider _serviceProvider;
     private Task<int>? _task;
 
     public CommandLineInterfaceRunner(
@@ -32,6 +32,12 @@ internal class CommandLineInterfaceRunner : IHostedService
         _task = RunCommands(cancellationToken);
 
         return Task.CompletedTask;
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        if (_task != null)
+            Environment.ExitCode = await _task;
     }
 
     private async Task<int> RunCommands(CancellationToken cancellationToken)
@@ -103,11 +109,5 @@ internal class CommandLineInterfaceRunner : IHostedService
     {
         System.Console.WriteLine("help");
         return Task.FromResult(1);
-    }
-
-    public async Task StopAsync(CancellationToken cancellationToken)
-    {
-        if (_task != null)
-            Environment.ExitCode = await _task;
     }
 }

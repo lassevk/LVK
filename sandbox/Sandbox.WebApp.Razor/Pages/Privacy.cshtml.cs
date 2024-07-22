@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Sandbox.WebApp.Razor.Pages;
 
@@ -12,5 +11,7 @@ public class PrivacyModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet() { }
+    public void OnGet()
+    {
+    }
 }

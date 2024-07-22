@@ -2,7 +2,7 @@ namespace LVK.Core.Caching;
 
 public class ManualWeakCache<TKey, TValue> : WeakCache<TKey, TValue>
     where TKey : notnull
-    where TValue: class
+    where TValue : class
 {
     public ManualWeakCache(IEqualityComparer<TKey>? comparer = null)
         : base(comparer ?? EqualityComparer<TKey>.Default)

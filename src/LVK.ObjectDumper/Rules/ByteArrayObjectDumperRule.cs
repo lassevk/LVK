@@ -56,7 +56,7 @@ public class ByteArrayObjectDumperRule : IObjectDumperRule
         string separator2 = separator1[1..];
 
         var sb = new StringBuilder();
-        sb.Append("ADDRESS "[0..addressLength].Trim().PadLeft(addressLength, ' '));
+        sb.Append("ADDRESS "[..addressLength].Trim().PadLeft(addressLength, ' '));
         sb.Append(separator1);
         for (var index = 0; index < 16; index++)
         {
@@ -101,6 +101,7 @@ public class ByteArrayObjectDumperRule : IObjectDumperRule
                 var c = (char)span[address];
                 if (c < 32 || c > 127)
                     c = '.';
+
                 target.Append(c);
             }
             else if (pad)

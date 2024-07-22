@@ -13,7 +13,9 @@ public class NonGenericBootstrapper : IModuleBootstrapper, IModuleInitializer<IH
         _initializer = initializer;
     }
 
-    public void Bootstrap(IHostBootstrapper bootstrapper, IHostApplicationBuilder builder) { }
+    public void Bootstrap(IHostBootstrapper bootstrapper, IHostApplicationBuilder builder)
+    {
+    }
 
     public void Initialize(IHost host)
     {

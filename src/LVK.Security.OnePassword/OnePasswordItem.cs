@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+
 // ReSharper disable CollectionNeverUpdated.Global
 
 namespace LVK.Security.OnePassword;

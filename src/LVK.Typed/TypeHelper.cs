@@ -5,20 +5,10 @@ namespace LVK.Typed;
 
 public class TypeHelper : ITypeHelper
 {
-    private readonly List<ITypeNameRule> _typeNameRules = new();
     private readonly ReaderWriterLockSlim _lock = new(LockRecursionPolicy.SupportsRecursion);
+    private readonly List<ITypeNameRule> _typeNameRules = new();
 
     public static ITypeHelper Instance { get; } = CreateDefaultTypeHelper();
-
-    private static ITypeHelper CreateDefaultTypeHelper()
-    {
-        var result = new TypeHelper();
-        result.AddRule(new GenericTypeNameRule());
-        result.AddRule(new NormalTypeNameRule());
-        result.AddRule(new NullableTypeNameRule());
-        result.AddRule(new CSharpKeywordTypeNameRule());
-        return result;
-    }
 
     public void AddRule(ITypeNameRule rule)
     {
@@ -49,5 +39,15 @@ public class TypeHelper : ITypeHelper
         {
             _lock.ExitReadLock();
         }
+    }
+
+    private static ITypeHelper CreateDefaultTypeHelper()
+    {
+        var result = new TypeHelper();
+        result.AddRule(new GenericTypeNameRule());
+        result.AddRule(new NormalTypeNameRule());
+        result.AddRule(new NullableTypeNameRule());
+        result.AddRule(new CSharpKeywordTypeNameRule());
+        return result;
     }
 }

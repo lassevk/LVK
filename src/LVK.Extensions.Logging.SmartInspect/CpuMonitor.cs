@@ -6,10 +6,10 @@ namespace LVK.Extensions.Logging.SmartInspect;
 
 internal class CpuMonitor
 {
-    private readonly Session _session;
     private readonly CancellationToken _cancellationToken;
 
     private readonly CircularQueue<double> _measurements = new();
+    private readonly Session _session;
 
     public CpuMonitor(Session session, CancellationToken cancellationToken)
     {

@@ -52,6 +52,7 @@ internal class PushoverNotificationSubscriber : IEventSubscriber<PushoverNotific
         if (evt.Priority is not null)
         {
             add("priority", ((int)evt.Priority.Value).ToString(CultureInfo.InvariantCulture));
+
             // if (evt.Priority == PushoverNotificationPriority.Emergency)
             // {
             //     add("retry", (evt.EmergencyRetryInterval ?? 60).ToString(CultureInfo.InvariantCulture));

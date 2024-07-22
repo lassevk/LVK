@@ -8,6 +8,6 @@ internal class WebApplicationBootstrapper : IApplicationBootstrapper<WebApplicat
 {
     public void Bootstrap(IHostBootstrapper<WebApplicationBuilder, WebApplication> bootstrapper, WebApplicationBuilder builder)
     {
-        bootstrapper.Bootstrap(new LVK.Core.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new ModuleBootstrapper());
     }
 }

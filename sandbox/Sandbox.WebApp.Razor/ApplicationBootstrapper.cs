@@ -2,8 +2,7 @@
 
 namespace Sandbox.WebApp.Razor;
 
-public class ApplicationBootstrapper : IApplicationBootstrapper<WebApplicationBuilder,WebApplication>,
-    IModuleInitializer<WebApplication>
+public class ApplicationBootstrapper : IApplicationBootstrapper<WebApplicationBuilder, WebApplication>, IModuleInitializer<WebApplication>
 {
     public void Bootstrap(IHostBootstrapper<WebApplicationBuilder, WebApplication> bootstrapper, WebApplicationBuilder builder)
     {

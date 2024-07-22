@@ -22,7 +22,6 @@ internal class CircularQueue<T>
             return T.Zero;
 
         return firstLast.Value.last - firstLast.Value.first;
-
     }
 
     public (T first, T last)? Get()

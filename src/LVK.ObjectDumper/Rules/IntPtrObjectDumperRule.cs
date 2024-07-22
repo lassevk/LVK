@@ -1,13 +1,8 @@
-using System.Globalization;
-
 namespace LVK.ObjectDumper.Rules;
 
 public class IntPtrObjectDumperRule : IObjectDumperRule
 {
-    private readonly HashSet<Type> _supportedTypes = [
-        typeof(nint),
-        typeof(nuint),
-    ];
+    private readonly HashSet<Type> _supportedTypes = [typeof(nint), typeof(nuint)];
 
     public Type[] GetKnownSupportedTypes() => _supportedTypes.ToArray();
 

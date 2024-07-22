@@ -11,7 +11,7 @@ public sealed class ModuleBootstrapper : IModuleBootstrapper
     public void Bootstrap(IHostBootstrapper bootstrapper, IHostApplicationBuilder builder)
     {
         bootstrapper.Bootstrap(new LVK.NodaTime.ModuleBootstrapper());
-        bootstrapper.Bootstrap(new LVK.Data.MongoDb.ModuleBootstrapper());
+        bootstrapper.Bootstrap(new MongoDb.ModuleBootstrapper());
 
         NodaTimeSerializers.Register();
     }

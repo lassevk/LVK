@@ -4,11 +4,10 @@ namespace LVK.Events.Tests;
 
 public class WeakEventTest
 {
+    public static int Counter;
 #pragma warning disable NUnit1032
     private readonly IServiceProvider _serviceProvider = new ServiceCollection().BuildServiceProvider();
 #pragma warning restore NUnit1032
-
-    public static int Counter;
 
     [Test]
     public async Task PublishEvent_SubscriberStillAlive_HandlesEvent()

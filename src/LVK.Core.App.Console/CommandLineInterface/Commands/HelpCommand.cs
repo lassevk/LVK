@@ -17,6 +17,9 @@ internal class HelpCommand : ICommand
         _routableCommandsProviders = routableCommandsProviders ?? throw new ArgumentNullException(nameof(routableCommandsProviders));
     }
 
+    [PositionalArguments]
+    public List<string> SpecificCommands { get; } = new();
+
     public async Task<int> RunAsync(CancellationToken cancellationToken)
     {
         // TODO: Help for one command
@@ -51,7 +54,4 @@ internal class HelpCommand : ICommand
         using var process = Process.GetCurrentProcess();
         return process.ProcessName;
     }
-
-    [PositionalArguments]
-    public List<string> SpecificCommands { get; } = new();
 }

@@ -71,6 +71,7 @@ public class EnumerableObjectDumperRule : IObjectDumperRule
             context.Writer.EndBlock();
             index++;
         }
+
         context.Writer.EndBlock();
         context.Writer.EndBlock();
     }

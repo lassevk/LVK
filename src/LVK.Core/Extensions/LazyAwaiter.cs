@@ -15,5 +15,7 @@ public readonly struct LazyAwaiter<T> : INotifyCompletion
 
     public bool IsCompleted => true;
 
-    public void OnCompleted(Action continuation) { }
+    public void OnCompleted(Action continuation)
+    {
+    }
 }

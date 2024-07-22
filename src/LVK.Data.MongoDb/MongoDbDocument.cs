@@ -6,10 +6,10 @@ namespace LVK.Data.MongoDb;
 public record MongoDbDocument
 {
     /// <summary>
-    /// Gets or sets the unique Object Id of this document.
+    ///     Gets or sets the unique Object Id of this document.
     /// </summary>
     /// <remarks>
-    /// The value of this property will be provided by the server when a new object is inserted.
+    ///     The value of this property will be provided by the server when a new object is inserted.
     /// </remarks>
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

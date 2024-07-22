@@ -10,9 +10,9 @@ namespace LVK.Extensions.Logging.SmartInspect;
 
 internal class SmartInspectLogger : ILogger
 {
-    private readonly Session _session;
     private readonly SmartInspectLoggerConfiguration _configuration;
     private readonly string _name;
+    private readonly Session _session;
 
     public SmartInspectLogger(string name, SmartInspectLoggerConfiguration configuration)
     {
@@ -21,36 +21,6 @@ internal class SmartInspectLogger : ILogger
         _configuration = configuration;
 
         ConfigureSession();
-    }
-
-    public void ConfigureSession()
-    {
-        ConfigureSessionWithDefaults();
-
-        if (_configuration.Sessions.TryGetValue("Default", out SmartInspectLoggerSessionConfiguration? defaultConfiguration))
-            ConfigureSession(defaultConfiguration);
-
-        if (_configuration.Sessions.TryGetValue(_name, out SmartInspectLoggerSessionConfiguration? sessionConfiguration))
-            ConfigureSession(sessionConfiguration);
-    }
-
-    private void ConfigureSession(SmartInspectLoggerSessionConfiguration sessionConfiguration)
-    {
-        if (sessionConfiguration.Enabled != null)
-            _session.Active = sessionConfiguration.Enabled ?? false;
-
-        if (!string.IsNullOrWhiteSpace(sessionConfiguration.Color))
-            _session.Color = Color.FromName(sessionConfiguration.Color);
-
-        if (!string.IsNullOrWhiteSpace(sessionConfiguration.Level))
-            _session.Level = LogLevelToLevel(Enum.Parse<LogLevel>(sessionConfiguration.Level));
-    }
-
-    private void ConfigureSessionWithDefaults()
-    {
-        _session.Active = true;
-        _session.Level = Level.Message;
-        _session.Color = Color.Transparent;
     }
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
@@ -87,6 +57,7 @@ internal class SmartInspectLogger : ILogger
                     _session.LogException(formatted, exception);
                 else
                     _session.LogError(formatted);
+
                 break;
 
             case Level.Fatal:
@@ -98,18 +69,6 @@ internal class SmartInspectLogger : ILogger
                 break;
         }
     }
-
-    private static Level LogLevelToLevel(LogLevel logLevel) => logLevel switch
-    {
-        LogLevel.Trace       => Level.Verbose,
-        LogLevel.Debug       => Level.Debug,
-        LogLevel.Information => Level.Message,
-        LogLevel.Warning     => Level.Warning,
-        LogLevel.Error       => Level.Error,
-        LogLevel.Critical    => Level.Fatal,
-        LogLevel.None        => Level.Debug,
-        _                    => throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, null)
-    };
 
     public bool IsEnabled(LogLevel logLevel) => throw new NotImplementedException();
 
@@ -123,4 +82,47 @@ internal class SmartInspectLogger : ILogger
         _session.EnterMethod(Level.Debug, scopeName);
         return new DelegateDisposable(() => _session.LeaveMethod(Level.Debug, scopeName));
     }
+
+    public void ConfigureSession()
+    {
+        ConfigureSessionWithDefaults();
+
+        if (_configuration.Sessions.TryGetValue("Default", out SmartInspectLoggerSessionConfiguration? defaultConfiguration))
+            ConfigureSession(defaultConfiguration);
+
+        if (_configuration.Sessions.TryGetValue(_name, out SmartInspectLoggerSessionConfiguration? sessionConfiguration))
+            ConfigureSession(sessionConfiguration);
+    }
+
+    private void ConfigureSession(SmartInspectLoggerSessionConfiguration sessionConfiguration)
+    {
+        if (sessionConfiguration.Enabled != null)
+            _session.Active = sessionConfiguration.Enabled ?? false;
+
+        if (!string.IsNullOrWhiteSpace(sessionConfiguration.Color))
+            _session.Color = Color.FromName(sessionConfiguration.Color);
+
+        if (!string.IsNullOrWhiteSpace(sessionConfiguration.Level))
+            _session.Level = LogLevelToLevel(Enum.Parse<LogLevel>(sessionConfiguration.Level));
+    }
+
+    private void ConfigureSessionWithDefaults()
+    {
+        _session.Active = true;
+        _session.Level = Level.Message;
+        _session.Color = Color.Transparent;
+    }
+
+    private static Level LogLevelToLevel(LogLevel logLevel)
+        => logLevel switch
+        {
+            LogLevel.Trace       => Level.Verbose,
+            LogLevel.Debug       => Level.Debug,
+            LogLevel.Information => Level.Message,
+            LogLevel.Warning     => Level.Warning,
+            LogLevel.Error       => Level.Error,
+            LogLevel.Critical    => Level.Fatal,
+            LogLevel.None        => Level.Debug,
+            _                    => throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, null),
+        };
 }

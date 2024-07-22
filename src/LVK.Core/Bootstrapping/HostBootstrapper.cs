@@ -41,19 +41,6 @@ internal class HostBootstrapper<TBuilder, THost> : IHostBootstrapper<TBuilder, T
         }
     }
 
-    private void AddInflightBootstrapper(object bootstrapper)
-    {
-        if (_inflightBootstrapperTypes.Add(bootstrapper.GetType()))
-            return;
-
-        throw new InvalidOperationException($"Bootstrapper type {bootstrapper.GetType().FullName} is recursively being bootstrapped twice");
-    }
-
-    private void RemoveInflightBootstrapper(object bootstrapper)
-    {
-        _inflightBootstrapperTypes.Remove(bootstrapper.GetType());
-    }
-
     IHostBootstrapper<TBuilder, THost> IHostBootstrapper<TBuilder, THost>.Bootstrap(IApplicationBootstrapper<TBuilder, THost> bootstrapper)
     {
         AddInflightBootstrapper(bootstrapper);
@@ -75,5 +62,18 @@ internal class HostBootstrapper<TBuilder, THost> : IHostBootstrapper<TBuilder, T
         {
             RemoveInflightBootstrapper(bootstrapper);
         }
+    }
+
+    private void AddInflightBootstrapper(object bootstrapper)
+    {
+        if (_inflightBootstrapperTypes.Add(bootstrapper.GetType()))
+            return;
+
+        throw new InvalidOperationException($"Bootstrapper type {bootstrapper.GetType().FullName} is recursively being bootstrapped twice");
+    }
+
+    private void RemoveInflightBootstrapper(object bootstrapper)
+    {
+        _inflightBootstrapperTypes.Remove(bootstrapper.GetType());
     }
 }

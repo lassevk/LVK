@@ -2,8 +2,8 @@ namespace LVK.Core.App.Console.Parameters.Options;
 
 internal class RoutableCommandEnumOption : RoutableCommandOption
 {
-    private readonly Action<object, object?> _injectValue;
     private readonly Type _enumType;
+    private readonly Action<object, object?> _injectValue;
     private object? _value;
 
     public RoutableCommandEnumOption(string? longName, string? shortName, string? description, Type enumType, object? defaultValue, Action<object, object?> injectValue)

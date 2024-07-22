@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\LVK.Core.App.Web\LVK.Core.App.Web.csproj" />
-      <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\..\src\LVK.Core.App.Web\LVK.Core.App.Web.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj"/>
     </ItemGroup>
 
 </Project>
