@@ -1,6 +1,6 @@
 ﻿namespace LVK.Core.App.Console;
 
-public class ConsoleLines
+public class ConsoleLines : IDisposable
 {
     private readonly ConsoleLine[] _lines;
     private readonly object _lock = new();
@@ -10,7 +10,9 @@ public class ConsoleLines
         Count = count;
         _lines = Enumerable.Range(0, count).Select(_ => new ConsoleLine()).ToArray();
         foreach (ConsoleLine line in _lines[..^1])
-            System.Console.WriteLine();
+            System.Console.Out.WriteLine();
+
+        System.Console.Out.HideCursor();
     }
 
     public int Count { get; }
@@ -20,8 +22,11 @@ public class ConsoleLines
         if (current == next)
             return;
 
-        System.Console.Write(current > next ? $"\u001b[{current - next}A" : $"\u001b[{next - current}B");
-        System.Console.Write($"\u001b[{_lines[next].Current.Length + 1}G");
+        System.Console.Out.Move(0, next - current);
+        lock (_lock)
+        {
+            System.Console.Out.MoveToColumn(_lines[next].Current.Length + 1);
+        }
     }
 
     public void Set(int index, string value)
@@ -82,5 +87,11 @@ public class ConsoleLines
     {
         Clear();
         GoToLine(Count - 1, 0);
+        System.Console.Out.ShowCursor();
+    }
+
+    public void Dispose()
+    {
+        System.Console.Out.ShowCursor();
     }
 }

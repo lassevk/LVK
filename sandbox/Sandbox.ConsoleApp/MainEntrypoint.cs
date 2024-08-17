@@ -12,7 +12,7 @@ public class MainEntrypoint : IMainEntrypoint
     {
         const int progressBars = 10;
         const int scrollWindow = 5;
-        var current = new ConsoleLines(progressBars + scrollWindow);
+        using var current = new ConsoleLines(progressBars + scrollWindow);
 
         Task[] tasks = Enumerable.Range(0, progressBars).Select(idx => Walker(s =>
         {
@@ -22,7 +22,7 @@ public class MainEntrypoint : IMainEntrypoint
         int counter = 0;
         while (!tasks.All(t => t.IsCompleted))
         {
-            await Task.Delay(1, stoppingToken);
+            await Task.Delay(500, stoppingToken);
             current.ScrollUp(progressBars, scrollWindow);
             current.Set(progressBars + scrollWindow - 1, (counter++).ToString(CultureInfo.InvariantCulture));
         }

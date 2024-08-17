@@ -33,6 +33,8 @@ internal class MainEntrypointRunner : IHostedService
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
+        System.Console.Out.ShowCursor();
+
         if (_task != null)
             Environment.ExitCode = await _task;
     }
