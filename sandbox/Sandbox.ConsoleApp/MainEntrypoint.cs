@@ -1,4 +1,6 @@
-﻿using LVK.Core;
+﻿using System.Globalization;
+
+using LVK.Core;
 using LVK.Core.App.Console;
 using LVK.Core.Results;
 
@@ -8,23 +10,44 @@ public class MainEntrypoint : IMainEntrypoint
 {
     public async Task<int> RunAsync(CancellationToken stoppingToken)
     {
-        await Task.Yield();
+        const int progressBars = 10;
+        const int scrollWindow = 5;
+        using var current = new ConsoleLines(progressBars + scrollWindow);
 
-        Result<FileInfo> result = GetFile(@"D:\Temp\test.yml");
-        result.Match(fi => Console.WriteLine($"File exists: {fi.FullName}"), error => Console.WriteLine(error));
+        Task[] tasks = Enumerable.Range(0, progressBars).Select(idx => Walker(s =>
+        {
+            current.Set(idx, s + $" - Task #{idx + 1}");
+        })).ToArray();
 
-        Console.WriteLine("DONE");
-        return result.Match(_ => 0, _ => 1);
+        int counter = 0;
+        while (!tasks.All(t => t.IsCompleted))
+        {
+            await Task.Delay(500, stoppingToken);
+            current.ScrollUp(progressBars, scrollWindow);
+            current.Set(progressBars + scrollWindow - 1, (counter++).ToString(CultureInfo.InvariantCulture));
+        }
+
+        await Task.WhenAll(tasks);
+
+        current.Remove();
+
+        return 0;
     }
 
-    private Result<FileInfo> GetFile(string path)
+    private async Task Walker(Action<string> onProgress)
     {
-        var fi = new FileInfo(path);
-        if (fi.Exists)
-            return Result.Success(fi);
+        int delta = Random.Shared.Next(10) + 1;
+        var index = 0;
+        while (index < 1000)
+        {
+            index += delta;
+            if (index > 1000)
+                index = 1000;
 
-        return Result.Failure<FileInfo>(new FileNotFoundError($"File does not exist, '{path}'"));
+            onProgress(ProgressBar.Format(index, 1000));
+            await Task.Delay(Random.Shared.Next(15 - delta));
+        }
+
+        onProgress(ProgressBar.Format(1000, 1000) + " DONE");
     }
-
-    private record FileNotFoundError(string Message) : Error;
 }
