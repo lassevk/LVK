@@ -22,6 +22,7 @@ public static class ConfigurationSourcesEx
         string hostname = Environment.MachineName.ToLowerInvariant();
         environmentName = environmentName.ToLowerInvariant();
 
+        configuration.SetBasePath(AppContext.BaseDirectory);
         configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         configuration.AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true);
         configuration.AddJsonFile($"appsettings.{hostname}.json", optional: true, reloadOnChange: true);
