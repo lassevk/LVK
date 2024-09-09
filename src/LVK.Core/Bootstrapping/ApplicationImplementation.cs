@@ -14,6 +14,8 @@ internal class ApplicationImplementation : IApplication
         Guard.NotNull(build);
         Guard.NotNull(bootstrappers);
 
+        ConfigurationSourcesEx.AdjustConfigurationSources(builder.Configuration, builder.Environment.EnvironmentName);
+
         IHostBootstrapper<TBuilder, THost> hostBootstrapper = new HostBootstrapper<TBuilder, THost>(builder);
 
         foreach (IApplicationBootstrapper<TBuilder, THost> bootstrapper in bootstrappers)
