@@ -1,4 +1,6 @@
-﻿namespace LVK.Core.App.Console;
+﻿using System.Net.Security;
+
+namespace LVK.Core.App.Console;
 
 public class ConsoleLine
 {
@@ -6,6 +8,11 @@ public class ConsoleLine
     {
         if (Current == value)
             return;
+
+        if (value == "")
+            System.Console.Out.ShowCursor();
+        else
+            System.Console.Out.HideCursor();
 
         System.Console.Out.MoveToStartOfLine().Write(value);
         System.Console.Out.ClearToEndOfLine();

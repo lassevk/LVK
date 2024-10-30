@@ -1,3 +1,5 @@
+using System.Text;
+
 using LVK.Core.Bootstrapping;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,10 @@ internal class CommandLineInterfaceBootstrapper : IApplicationBootstrapper<HostA
 {
     public void Bootstrap(IHostBootstrapper<HostApplicationBuilder, IHost> bootstrapper, HostApplicationBuilder builder)
     {
+        System.Console.OutputEncoding = Encoding.UTF8;
+
+        bootstrapper.Bootstrap(new ModuleBootstrapper());
+
         builder.Services.AddHostedService<CommandLineInterfaceRunner>();
         builder.Services.RegisterRoutableCommandsInAssembly<CommandLineInterfaceBootstrapper>();
     }

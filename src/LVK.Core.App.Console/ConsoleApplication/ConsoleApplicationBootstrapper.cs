@@ -11,9 +11,9 @@ internal class ConsoleApplicationBootstrapper : IApplicationBootstrapper<HostApp
 {
     public void Bootstrap(IHostBootstrapper<HostApplicationBuilder, IHost> bootstrapper, HostApplicationBuilder builder)
     {
-        bootstrapper.Bootstrap(new ModuleBootstrapper());
-
         System.Console.OutputEncoding = Encoding.UTF8;
+
+        bootstrapper.Bootstrap(new ModuleBootstrapper());
 
         builder.Services.AddHostedService<MainEntrypointRunner>();
     }

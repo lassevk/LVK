@@ -10,44 +10,14 @@ public class MainEntrypoint : IMainEntrypoint
 {
     public async Task<int> RunAsync(CancellationToken stoppingToken)
     {
-        const int progressBars = 10;
-        const int scrollWindow = 5;
-        using var current = new ConsoleLines(progressBars + scrollWindow);
-
-        Task[] tasks = Enumerable.Range(0, progressBars).Select(idx => Walker(s =>
+        const int limit = 1000_000;
+        var line = new ConsoleLine();
+        for (int index = 0; index <= limit; index++)
         {
-            current.Set(idx, s + $" - Task #{idx + 1}");
-        })).ToArray();
-
-        int counter = 0;
-        while (!tasks.All(t => t.IsCompleted))
-        {
-            await Task.Delay(500, stoppingToken);
-            current.ScrollUp(progressBars, scrollWindow);
-            current.Set(progressBars + scrollWindow - 1, (counter++).ToString(CultureInfo.InvariantCulture));
+            line.Set(ProgressBar.Format(index, limit));
+            await Task.Yield();
         }
-
-        await Task.WhenAll(tasks);
-
-        current.Remove();
 
         return 0;
-    }
-
-    private async Task Walker(Action<string> onProgress)
-    {
-        int delta = Random.Shared.Next(10) + 1;
-        var index = 0;
-        while (index < 1000)
-        {
-            index += delta;
-            if (index > 1000)
-                index = 1000;
-
-            onProgress(ProgressBar.Format(index, 1000));
-            await Task.Delay(Random.Shared.Next(15 - delta));
-        }
-
-        onProgress(ProgressBar.Format(1000, 1000) + " DONE");
     }
 }
