@@ -7,7 +7,7 @@ namespace LVK.Data.MongoDb;
 
 public static class MongoQueryableExtensions
 {
-    public static async Task<List<T>> ToListAsync<T>(this IMongoQueryable<T> collection, CancellationToken cancellationToken)
+    public static async Task<List<T>> ToListAsync<T>(this IQueryable<T> collection, CancellationToken cancellationToken)
     {
         var result = new List<T>();
         await foreach (T item in collection.AsAsyncEnumerable(cancellationToken))
@@ -16,7 +16,7 @@ public static class MongoQueryableExtensions
         return result;
     }
 
-    public static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(this IMongoQueryable<T> collection, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(this IQueryable<T> collection, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using IAsyncCursor<T>? cursor = await collection.ToCursorAsync(cancellationToken);
 

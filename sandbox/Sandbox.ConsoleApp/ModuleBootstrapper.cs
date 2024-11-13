@@ -12,7 +12,6 @@ public class ModuleBootstrapper : IApplicationBootstrapper<HostApplicationBuilde
         bootstrapper.Bootstrap(new LVK.Events.ModuleBootstrapper()).Bootstrap(new LVK.Extensions.Logging.SmartInspect.ModuleBootstrapper()).Bootstrap(new LVK.Events.ModuleBootstrapper())
            .Bootstrap(new LVK.ObjectDumper.ModuleBootstrapper()).Bootstrap(new LVK.Events.ModuleBootstrapper()).Bootstrap(new LVK.Notifications.Pushover.ModuleBootstrapper())
            .Bootstrap(new LVK.Data.EntityFramework.ModuleBootstrapper()).Bootstrap(new LVK.Data.EntityFramework.Sqlite.ModuleBootstrapper())
-           .Bootstrap(new LVK.Data.EntityFramework.MySql.ModuleBootstrapper()).Bootstrap(new LVK.Data.BlobStorage.ModuleBootstrapper()).Bootstrap(new LVK.Security.OnePassword.ModuleBootstrapper())
            .Bootstrap(new LVK.Data.MongoDb.ModuleBootstrapper());
 
         builder.Services.AddMainEntrypoint<MainEntrypoint>();
