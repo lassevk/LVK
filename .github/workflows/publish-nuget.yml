@@ -7,6 +7,10 @@ on:
     tags:
       - '*'
 
+env:
+  DOTNET_SDK_VERSION: '9.0.x'
+  DOTNET_TFM: 'net9.0'
+
 defaults:
   run:
     shell: pwsh
@@ -24,6 +28,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+          dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_PAT}}
 
