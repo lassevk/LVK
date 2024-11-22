@@ -90,7 +90,7 @@ public abstract class NugetTests<T>
     {
         TestCaseData prop(string name, string value) => new TestCaseData(name, value).SetName($"{name} = {value}");
 
-        yield return prop("TargetFramework", "net8.0");
+        yield return prop("TargetFrameworks", "net8.0;net9.0");
         yield return prop("Nullable", "enable");
         yield return prop("Title", Path.GetFileNameWithoutExtension(_projectFilePath.Value)!);
         yield return prop("Authors", "Lasse V\u00e5gs\u00e6ther Karlsen");
